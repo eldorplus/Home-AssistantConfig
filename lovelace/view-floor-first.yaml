@@ -130,31 +130,35 @@ cards:
       - entity: binary_sensor.second_ensuite_water_leak
         name: Leak
         show_last_changed: true
-- type: glance
-  title: Guest bedroom
-  entities:
-    - entity: binary_sensor.guest_bedroom_door_contact
-      name: Door
-      show_last_changed: true
-    - entity: binary_sensor.guest_bedroom_window_left_contact
-      show_last_changed: true
-      name: Left
-    - entity: binary_sensor.guest_bedroom_window_right_contact
-      show_last_changed: true
-      name: Right
-    - entity: binary_sensor.guest_bedroom_motion_occupancy
-      show_last_changed: true
-      name: Motion
-    - entity: sensor.guest_bedroom_motion_illuminance_lux
-      name: Illuminance
-    - entity: switch.guest_bedroom_socket
-      tap_action: 
-        action: toggle
-      name: Zig Socket
-      show_last_changed: true
-    - entity: media_player.cast_master_bedroom_display
-      name: Home Mini
-      show_last_changed: true
+- type: vertical-stack
+  cards:
+  - type: heading
+    heading: Guest bedroom
+    badges:
+      - entity: sensor.guest_bedroom_motion_illuminance_lux
+        name: Illuminance
+  - type: glance
+    entities:
+      - entity: binary_sensor.guest_bedroom_door_contact
+        name: Door
+        show_last_changed: true
+      - entity: binary_sensor.guest_bedroom_window_left_contact
+        show_last_changed: true
+        name: Left
+      - entity: binary_sensor.guest_bedroom_window_right_contact
+        show_last_changed: true
+        name: Right
+      - entity: binary_sensor.guest_bedroom_motion_occupancy
+        show_last_changed: true
+        name: Motion
+      - entity: switch.guest_bedroom_socket
+        tap_action: 
+          action: toggle
+        name: Zig Socket
+        show_last_changed: true
+      - entity: media_player.cast_master_bedroom_display
+        name: Home Mini
+        show_last_changed: true
 - type: vertical-stack
   cards:
     - type: heading
@@ -254,17 +258,21 @@ cards:
         show_last_changed: true
       - entity: climate.spare_bedroom_radiator
         name: Radiator
-- type: glance
-  title: Upstairs hall
-  entities:
-    - entity: binary_sensor.upstairs_hall_motion_front_occupancy
-      name: Front
-      show_last_changed: true
-    - entity: binary_sensor.loft_hatch_contact
-      name: Loft
-      show_last_changed: true
-    - entity: sensor.loft_environment_temperature
-      name: Loft
+- type: vertical-stack
+  cards:
+  - type: heading
+    heading: Upstairs hall
+    badges:
+      - entity: sensor.loft_environment_temperature
+        name: Loft
+  - type: glance
+    entities:
+      - entity: binary_sensor.upstairs_hall_motion_front_occupancy
+        name: Front
+        show_last_changed: true
+      - entity: binary_sensor.loft_hatch_contact
+        name: Loft
+        show_last_changed: true
 - type: custom:mini-graph-card
   name: Illuminance
   points_per_hour: 12
