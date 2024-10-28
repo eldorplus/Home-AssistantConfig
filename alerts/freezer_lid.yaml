@@ -1,4 +1,5 @@
-name: "The chest bike has been open for {{ relative_time(states.binary_sensor.chest_bike_lid_contact.last_changed) }}"
+name: "The chest bike has been left open"
+message: "The chest bike has been open for {{ relative_time(states.binary_sensor.chest_bike_lid_contact.last_changed) }}"
 done_message: "The chest bike is now closed"
 entity_id: binary_sensor.chest_bike_lid_contact
 state: 'on'
