@@ -83,12 +83,12 @@ cards:
 - type: vertical-stack
   cards:
   - type: heading
-    heading: Front of house
+    heading: Outside
     badges:
       - entity: sensor.outside_light_sensor_illuminance_lux
         name: Lux
   - type: glance
-    columns: 5
+    columns: 4
     entities:
       - entity: binary_sensor.front_door_contact
         show_last_changed: true
@@ -104,6 +104,10 @@ cards:
         name: Gate
       - entity: switch.number_sign
         icon: mdi:home-floor-3
+        tap_action: 
+          action: toggle
+        show_last_changed: true
+      - entity: switch.garden_lights
         tap_action: 
           action: toggle
         show_last_changed: true
@@ -189,7 +193,7 @@ cards:
 - type: vertical-stack
   cards:
   - type: heading
-    heading: Utility room & back
+    heading: Utility
     badges:
       - entity: sensor.utility_motion_illuminance_lux
         name: Illuminance
@@ -204,14 +208,6 @@ cards:
       - entity: binary_sensor.utility_room_water_leak_water_leak
         show_last_changed: true
         name: Leak
-  - type: glance
-    entities:
-      - entity: switch.garden_lights
-        tap_action: 
-          action: toggle
-        show_last_changed: true
-      - entity: sensor.sun_solar_elevation
-        name: Sun elevation
   - type: vertical-stack
     cards:
     - type: heading
