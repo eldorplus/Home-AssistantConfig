@@ -5,7 +5,7 @@ trigger:
   - platform: state
     entity_id: switch.office_sonos
     to: 'off'
-    for: '00:00:30'
+    for: '00:00:10'
 action:
   - service: switch.turn_on
     entity_id: switch.office_sonos

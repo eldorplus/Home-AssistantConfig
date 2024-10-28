@@ -17,21 +17,21 @@ condition:
     state: 'off'
   - condition: or
     conditions:
-    # Arrived in work
+    # Arrived at uni
     - condition: and
       conditions:
       - condition: template
         value_template: "{{ state_attr('script.person1_traveltime','last_triggered') is none or (now() - state_attr('script.person1_traveltime','last_triggered')).seconds > 300 }}"
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'work' and trigger.from_state.state == 'not_home' }}"
-    # In work, been at least an hour
+        value_template: "{{ 'University' in trigger.to_state.state and trigger.from_state.state == 'not_home' }}"
+    # In uni, been at least an hour
     - condition: and
       conditions:
       - condition: template
         value_template: "{{ state_attr('script.person1_traveltime','last_triggered') is none or (now() - state_attr('script.person1_traveltime','last_triggered')).seconds > 1800 }}"
       - condition: state
-        entity_id: device_tracker.sm_a546b
-        state: 'work'
+        entity_id: input_boolean.person1_at_hw
+        state: 'on'
     # It's been at least 5 minutes, and pretty close
     - condition: and
       conditions:
@@ -49,11 +49,6 @@ condition:
         entity_id: sensor.home_person1_distance
         above: 1999
         below: 10000
-      - condition: not
-        conditions:
-          - condition: state
-            entity_id: device_tracker.sm_a546b
-            state: 'work'
     # It's been at least 30 minutes, and a moderate distance away
     - condition: and
       conditions:
