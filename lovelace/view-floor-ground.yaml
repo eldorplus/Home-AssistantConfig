@@ -82,8 +82,10 @@ cards:
       red: 1450
 - type: vertical-stack
   cards:
+  - type: heading
+    heading: Front of house
+    badges:
   - type: glance
-    title: Front of house
     columns: 5
     entities:
       - entity: binary_sensor.front_door_contact
@@ -103,25 +105,34 @@ cards:
         tap_action: 
           action: toggle
         show_last_changed: true
-  - type: glance
-    title: Garage
-    columns: 4
-    entities:
-      - entity: binary_sensor.boiler_water_leak
-        show_last_changed: true
-      - entity: binary_sensor.chest_bike_lid_contact
-        name: bike lid
-        show_last_changed: true
-      - entity: binary_sensor.garage_carbon_monoxide
-        name: Carbon Monoxide
-        show_last_changed: true
-      - entity: binary_sensor.garage_smoke_smoke
-        name: Smoke
-        show_last_changed: true
-  - type: glance
-    title: Vestibule
-    columns: 6
-    entities:
+  - type: vertical-stack
+    cards:
+    - type: heading
+      heading: Garage
+    - type: glance
+      columns: 4
+      entities:
+        - entity: binary_sensor.boiler_water_leak
+          show_last_changed: true
+        - entity: binary_sensor.chest_bike_lid_contact
+          name: bike lid
+          show_last_changed: true
+        - entity: binary_sensor.garage_carbon_monoxide
+          name: Carbon Monoxide
+          show_last_changed: true
+        - entity: binary_sensor.garage_smoke_smoke
+          name: Smoke
+          show_last_changed: true
+  - type: vertical-stack
+    cards:
+    - type: heading
+      heading: Vestibule
+      badges:
+      - entity: sensor.vestibule_climate_temperature
+        name: Temperature
+    - type: glance
+      columns: 5
+      entities:
       - entity: binary_sensor.vestibule_door_contact
         show_last_changed: true
         name: Door
@@ -134,42 +145,52 @@ cards:
       - entity: binary_sensor.vestibule_multi_occupancy
         show_last_changed: true
         name: Motion
-      - entity: sensor.vestibule_climate_temperature
-        name: Temperature
       - entity: switch.vestibule_socket
         name: Socket
         tap_action: 
           action: toggle
         show_last_changed: true
-  - type: glance
-    title: Hall
-    columns: 3
-    entities:
+  - type: vertical-stack
+    cards:
+    - type: heading
+      heading: Hall
+      badges:
+      - entity: sensor.downstairs_hall_light_sensor_illuminance_lux
+        name: "Illuminance"
+    - type: glance
+      columns: 2
+      entities:
       - entity: binary_sensor.downstairs_hall_motion_occupancy
         show_last_changed: true
         name: Motion
-      - entity: sensor.downstairs_hall_light_sensor_illuminance_lux
-        name: "Illuminance"
       - entity: light.downstairs_hall
         name: Hall light
         show_last_changed: true
-  - type: glance
-    title: Toilet
-    entities:
-      - entity: binary_sensor.toilet_door_contact
-        name: Door
-        show_last_changed: true
-      - entity: sensor.toilet_light_sensor_illuminance_lux
-        name: Illuminance
-      - entity: binary_sensor.toilet_water_leak_water_leak
-        name: Leak
-        show_last_changed: true
-      - entity: light.toilet
-        name: Light
-        show_last_changed: true
+  - type: vertical-stack
+    cards:
+    - type: heading
+      heading: Toilet
+      badges:
+        - entity: sensor.toilet_light_sensor_illuminance_lux
+          name: Illuminance
+    - type: glance
+      entities:
+        - entity: binary_sensor.toilet_door_contact
+          name: Door
+          show_last_changed: true
+        - entity: binary_sensor.toilet_water_leak_water_leak
+          name: Leak
+          show_last_changed: true
+        - entity: light.toilet
+          name: Light
+          show_last_changed: true
 - type: vertical-stack
-  title: Utility room & back
   cards:
+  - type: heading
+    heading: Utility room & back
+    badges:
+      - entity: sensor.utility_motion_illuminance_lux
+        name: Illuminance
   - type: glance
     entities:
       - entity: binary_sensor.utility_door_exterior_contact
@@ -178,8 +199,6 @@ cards:
       - entity: binary_sensor.utility_motion_occupancy
         show_last_changed: true
         name: Motion
-      - entity: sensor.utility_motion_illuminance_lux
-        name: Illuminance
       - entity: binary_sensor.utility_room_water_leak_water_leak
         show_last_changed: true
         name: Leak
@@ -193,25 +212,29 @@ cards:
         name: Sun elevation
       - entity: sensor.outside_light_sensor_illuminance_lux
         name: Lux
-  - type: glance
-    title: Kitchen
-    columns: 5
-    entities:
-      - entity: binary_sensor.kitchen_window_left_contact
-        show_last_changed: true
-        name: Left
-      - entity: binary_sensor.kitchen_window_right_contact
-        show_last_changed: true
-        name: Right
-      - entity: binary_sensor.kitchen_water_leak_water_leak
-        show_last_changed: true
-        name: Sink
-      - entity: binary_sensor.kitchen_water_leak_old_water_leak
-        show_last_changed: true
-        name: Dishwasher
-      - entity: media_player.cast_kitchen_speaker
-        show_last_changed: true
-        name: Mini
+  - type: vertical-stack
+    cards:
+    - type: heading
+      heading: Kitchen
+      badges:
+    - type: glance
+      columns: 5
+      entities:
+        - entity: binary_sensor.kitchen_window_left_contact
+          show_last_changed: true
+          name: Left
+        - entity: binary_sensor.kitchen_window_right_contact
+          show_last_changed: true
+          name: Right
+        - entity: binary_sensor.kitchen_water_leak_water_leak
+          show_last_changed: true
+          name: Sink
+        - entity: binary_sensor.kitchen_water_leak_old_water_leak
+          show_last_changed: true
+          name: Dishwasher
+        - entity: media_player.cast_kitchen_speaker
+          show_last_changed: true
+          name: Mini
   - type: vertical-stack
     cards:
     - type: heading
