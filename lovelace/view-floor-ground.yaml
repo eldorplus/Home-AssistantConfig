@@ -10,10 +10,16 @@ cards:
     badges:
     - entity: sensor.living_room_light_sensor_illuminance_lux
       name: "Illuminance"
+      tap_action: 
+        action: more-info
     - entity: sensor.living_room_climate_temperature
       name: "Temperature"
+      tap_action: 
+        action: more-info
     - entity: sensor.living_room_climate_humidity
       name: "Humidity"
+      tap_action: 
+        action: more-info
   - type: glance
     columns: 6
     entities:
@@ -87,6 +93,8 @@ cards:
     badges:
       - entity: sensor.outside_light_sensor_illuminance_lux
         name: Lux
+        tap_action: 
+          action: more-info
   - type: glance
     columns: 4
     entities:
@@ -136,6 +144,8 @@ cards:
       badges:
       - entity: sensor.vestibule_climate_temperature
         name: Temperature
+        tap_action: 
+          action: more-info
     - type: glance
       columns: 5
       entities:
@@ -163,6 +173,8 @@ cards:
       badges:
       - entity: sensor.downstairs_hall_light_sensor_illuminance_lux
         name: "Illuminance"
+        tap_action: 
+          action: more-info
     - type: glance
       columns: 2
       entities:
@@ -179,6 +191,8 @@ cards:
       badges:
         - entity: sensor.toilet_light_sensor_illuminance_lux
           name: Illuminance
+          tap_action: 
+            action: more-info
     - type: glance
       entities:
         - entity: binary_sensor.toilet_door_contact
@@ -197,6 +211,8 @@ cards:
     badges:
       - entity: sensor.utility_motion_illuminance_lux
         name: Illuminance
+        tap_action: 
+          action: more-info
   - type: glance
     entities:
       - entity: binary_sensor.utility_door_exterior_contact
@@ -212,7 +228,6 @@ cards:
     cards:
     - type: heading
       heading: Kitchen
-      badges:
     - type: glance
       columns: 5
       entities:
@@ -238,8 +253,12 @@ cards:
       badges:
         - entity: sensor.family_room_multi_illuminance_lux
           name: Illuminance
+          tap_action: 
+            action: more-info
         - entity: sensor.family_room_multi_temperature
           name: Temperature
+          tap_action: 
+            action: more-info
     - type: glance
       entities:
         - entity: binary_sensor.family_room_door_contact

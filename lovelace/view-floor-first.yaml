@@ -10,14 +10,24 @@ cards:
     badges:
       - entity: sensor.master_bedroom_light_sensor_illuminance_lux
         name: Illuminance
+        tap_action: 
+          action: more-info
       - entity: sensor.master_bedroom_environment_temperature
         name: Temperature
+        tap_action: 
+          action: more-info
       - entity: sensor.master_bedroom_environment_humidity
         name: Humidity
+        tap_action: 
+          action: more-info
       - entity: sensor.master_bedroom_environment_pm25
         name: PM 2.5
+        tap_action: 
+          action: more-info
       - entity: sensor.master_bedroom_environment_voc_index
         name: VOC Index
+        tap_action: 
+          action: more-info
   - type: glance
     columns: 4
     entities:
@@ -64,8 +74,12 @@ cards:
     badges:
       - entity: sensor.master_ensuite_temperature
         name: Temperature
+        tap_action: 
+          action: more-info
       - entity: sensor.master_ensuite_humidity
         name: Humidity
+        tap_action: 
+          action: more-info
   - type: glance
     entities:
       - entity: binary_sensor.master_ensuite_door_contact
@@ -84,6 +98,8 @@ cards:
     badges:
       - entity: sensor.second_bedroom_light_sensor_illuminance_lux
         name: Illuminance
+        tap_action: 
+          action: more-info
   - type: glance
     columns: 4
     entities:
@@ -116,8 +132,12 @@ cards:
     badges:
       - entity: sensor.second_bedroom_ensuite_temperature
         name: Temperature
+        tap_action: 
+          action: more-info
       - entity: sensor.second_bedroom_ensuite_humidity
         name: Humidity
+        tap_action: 
+          action: more-info
   - type: glance
     #title: Second bedroom ensuite
     entities:
@@ -137,7 +157,10 @@ cards:
     badges:
       - entity: sensor.guest_bedroom_motion_illuminance_lux
         name: Illuminance
+        tap_action: 
+          action: more-info
   - type: glance
+    columns: 4
     entities:
       - entity: binary_sensor.guest_bedroom_door_contact
         name: Door
@@ -154,7 +177,7 @@ cards:
       - entity: switch.guest_bedroom_socket
         tap_action: 
           action: toggle
-        name: Zig Socket
+        name: Socket
         show_last_changed: true
       - entity: media_player.cast_master_bedroom_display
         name: Home Mini
@@ -166,8 +189,12 @@ cards:
       badges:
         - entity: sensor.bathroom_environment_temperature
           name: Temperature
+          tap_action: 
+            action: more-info
         - entity: sensor.bathroom_environment_humidity
           name: Humidity
+          tap_action: 
+            action: more-info
     - type: glance
       entities:
         - entity: binary_sensor.bathroom_door_contact
@@ -192,14 +219,24 @@ cards:
       #show_last_changed: true
     - entity: sensor.office_illuminance_illuminance_lux
       name: Illuminance
+      tap_action: 
+        action: more-info
     - entity: sensor.office_temperature
       name: Temperature
+      tap_action: 
+        action: more-info
     - entity: sensor.office_humidity
       name: Humidity
+      tap_action: 
+        action: more-info
     - entity: sensor.office_air_pm25
       name: "PM 2.5"
+      tap_action: 
+        action: more-info
     - entity: sensor.office_air_voc
       name: "VOC"
+      tap_action: 
+        action: more-info
   - type: glance
     columns: 5
     entities:
@@ -239,6 +276,8 @@ cards:
     badges:
       - entity: sensor.spare_bedroom_environment_temperature
         name: Temperature
+        tap_action: 
+          action: more-info
   - type: glance
     columns: 6
     entities:
@@ -266,6 +305,8 @@ cards:
     badges:
       - entity: sensor.loft_environment_temperature
         name: Loft
+        tap_action: 
+          action: more-info
   - type: glance
     entities:
       - entity: binary_sensor.upstairs_hall_motion_front_occupancy
