@@ -60,7 +60,7 @@ cards:
         show_last_changed: true
   - type: heading
     heading: Master en-suite
-    heading_style: sub_heading
+    heading_style: subtitle
     badges:
       - entity: sensor.master_ensuite_temperature
         name: Temperature
@@ -187,7 +187,8 @@ cards:
     - entity: binary_sensor.office_mmwave_region_1
       name: Presence
       color: state
-      state_content: last_changed
+      show_state: false
+      #state_content: last_changed
       #show_last_changed: true
     - entity: sensor.office_illuminance_illuminance_lux
       name: Illuminance
@@ -195,8 +196,12 @@ cards:
       name: Temperature
     - entity: sensor.office_humidity
       name: Humidity
+    - entity: sensor.office_air_pm25
+      name: "PM 2.5"
+    - entity: sensor.office_air_voc
+      name: "VOC"
   - type: glance
-    columns: 6
+    columns: 5
     entities:
       - entity: binary_sensor.office_door_contact
         show_last_changed: true
@@ -227,10 +232,6 @@ cards:
         show_last_changed: true
       - entity: sensor.office_air_co2
         name: "CO₂"
-      - entity: sensor.office_air_voc
-        name: "VOC"
-      - entity: sensor.office_air_pm25
-        name: "PM 2.5"
 - type: vertical-stack
   cards:
   - type: heading
