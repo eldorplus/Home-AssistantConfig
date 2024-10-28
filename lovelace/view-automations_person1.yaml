@@ -47,8 +47,6 @@ cards:
   title: Automations for travel - person1
   show_header_toggle: false
   entities:
-  - entity: automation.person1_returning
-    secondary_info: last-triggered
   - entity: automation.person1_travelling
     secondary_info: last-triggered
   - entity: automation.person1_on_the_move
