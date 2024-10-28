@@ -4,10 +4,18 @@ path: ground-floor
 icon: mdi:home-floor-g
 cards:
 - type: vertical-stack
-  title: Living room
   cards:
+  - type: heading
+    heading: Living room
+    badges:
+    - entity: sensor.living_room_light_sensor_illuminance_lux
+      name: "Illuminance"
+    - entity: sensor.living_room_climate_temperature
+      name: "Temperature"
+    - entity: sensor.living_room_climate_humidity
+      name: "Humidity"
   - type: glance
-    columns: 5
+    columns: 6
     entities:
     - entity: binary_sensor.patio_window_left_contact
       show_last_changed: true
@@ -24,18 +32,9 @@ cards:
     - entity: binary_sensor.living_room_door_contact
       show_last_changed: true
       name: "Door"
-  - type: glance
-    columns: 4
-    entities:
     - entity: binary_sensor.living_room_presence_occupancy
       show_last_changed: true
       name: "Motion"
-    - entity: sensor.living_room_light_sensor_illuminance_lux
-      name: "Illuminance"
-    - entity: sensor.living_room_climate_temperature
-      name: "Temperature"
-    - entity: sensor.living_room_climate_humidity
-      name: "Humidity"
   - type: glance
     columns: 5
     entities:
@@ -214,10 +213,15 @@ cards:
         show_last_changed: true
         name: Mini
   - type: vertical-stack
-    title: Family room
     cards:
+    - type: heading
+      heading: Family room
+      badges:
+        - entity: sensor.family_room_multi_illuminance_lux
+          name: Illuminance
+        - entity: sensor.family_room_multi_temperature
+          name: Temperature
     - type: glance
-      columns: 6
       entities:
         - entity: binary_sensor.family_room_door_contact
           show_last_changed: true
@@ -231,10 +235,6 @@ cards:
         - entity: binary_sensor.family_room_multi_occupancy
           show_last_changed: true
           name: Motion
-        - entity: sensor.family_room_multi_illuminance_lux
-          name: Illuminance
-        - entity: sensor.family_room_multi_temperature
-          name: Temperature
     - type: glance
       columns: 5
       entities:

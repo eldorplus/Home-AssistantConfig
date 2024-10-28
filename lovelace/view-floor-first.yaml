@@ -4,10 +4,22 @@ path: first-floor
 icon: mdi:home-floor-1
 cards:
 - type: vertical-stack
-  title: Master bedroom and en-suite
   cards:
+  - type: heading
+    heading: Master bedroom
+    badges:
+      - entity: sensor.master_bedroom_light_sensor_illuminance_lux
+        name: Illuminance
+      - entity: sensor.master_bedroom_environment_temperature
+        name: Temperature
+      - entity: sensor.master_bedroom_environment_humidity
+        name: Humidity
+      - entity: sensor.master_bedroom_environment_pm25
+        name: PM 2.5
+      - entity: sensor.master_bedroom_environment_voc_index
+        name: VOC Index
   - type: glance
-    columns: 5
+    columns: 4
     entities:
       - entity: binary_sensor.master_bedroom_door_contact
         name: Door
@@ -21,16 +33,6 @@ cards:
       - entity: binary_sensor.master_bedroom_motion_occupancy
         show_last_changed: true
         name: Motion
-      - entity: sensor.master_bedroom_light_sensor_illuminance_lux
-        name: Illuminance
-      - entity: sensor.master_bedroom_environment_temperature
-        name: Temperature
-      - entity: sensor.master_bedroom_environment_humidity
-        name: Humidity
-      - entity: sensor.master_bedroom_environment_pm25
-        name: PM 2.5
-      - entity: sensor.master_bedroom_environment_voc_index
-        name: VOC Index
   - type: glance
     columns: 6
     entities:
@@ -56,6 +58,14 @@ cards:
       - entity: media_player.master_bedroom_display
         name: "Home Hub"
         show_last_changed: true
+  - type: heading
+    heading: Master en-suite
+    heading_style: sub_heading
+    badges:
+      - entity: sensor.master_ensuite_temperature
+        name: Temperature
+      - entity: sensor.master_ensuite_humidity
+        name: Humidity
   - type: glance
     entities:
       - entity: binary_sensor.master_ensuite_door_contact
@@ -64,20 +74,18 @@ cards:
       - entity: binary_sensor.master_window_ensuite_contact
         show_last_changed: true
         name: Window
-      - entity: sensor.master_ensuite_temperature
-        name: Temperature
-      - entity: sensor.master_ensuite_humidity
-        name: Humidity
       - entity: binary_sensor.master_ensuite_leak_water_leak
         name: Leak
         show_last_changed: true
 - type: vertical-stack
-  title: Second bedroom & en-suite
   cards:
+  - type: heading
+    heading: Second bedroom
+    badges:
+      - entity: sensor.second_bedroom_light_sensor_illuminance_lux
+        name: Illuminance
   - type: glance
-    #title: Second bedroom
-    #column_width: 25%
-    columns: 5
+    columns: 4
     entities:
       - entity: binary_sensor.second_bedroom_door_contact
         show_last_changed: true
@@ -91,8 +99,6 @@ cards:
       - entity: binary_sensor.second_bedroom_motion_occupancy
         show_last_changed: true
         name: Motion
-      - entity: sensor.second_bedroom_light_sensor_illuminance_lux
-        name: Illuminance
       - entity: light.wled_neon_k
         name: Bedhead
         icon: mdi:led-strip-variant
@@ -104,6 +110,14 @@ cards:
       - entity: media_player.cast_second_bedroom_speaker
         name: Home Mini
         show_last_changed: true
+  - type: heading
+    heading: Second en-suite
+    heading_style: subtitle
+    badges:
+      - entity: sensor.second_bedroom_ensuite_temperature
+        name: Temperature
+      - entity: sensor.second_bedroom_ensuite_humidity
+        name: Humidity
   - type: glance
     #title: Second bedroom ensuite
     entities:
@@ -113,10 +127,6 @@ cards:
       - entity: binary_sensor.second_bedroom_window_ensuite_contact
         show_last_changed: true
         name: Window
-      - entity: sensor.second_bedroom_ensuite_temperature
-        name: Temperature
-      - entity: sensor.second_bedroom_ensuite_humidity
-        name: Humidity
       - entity: binary_sensor.second_ensuite_water_leak
         name: Leak
         show_last_changed: true
@@ -145,94 +155,105 @@ cards:
     - entity: media_player.cast_master_bedroom_display
       name: Home Mini
       show_last_changed: true
-- type: glance
-  title: Bathroom
-  entities:
-    - entity: binary_sensor.bathroom_door_contact
-      show_last_changed: true
-      name: Door
-    - entity: binary_sensor.bathroom_window_contact
-      show_last_changed: true
-      name: Window
-    - entity: sensor.bathroom_environment_temperature
-      name: Temperature
-    - entity: sensor.bathroom_environment_humidity
-      name: Humidity
-    - entity: binary_sensor.bathroom_water_leak_water_leak
-      name: Leak
-      show_last_changed: true
-- type: glance
-  title: Office
-  columns: 6
-  entities:
-    - entity: binary_sensor.office_door_contact
-      show_last_changed: true
-      name: Door
-    - entity: binary_sensor.office_window_contact
-      show_last_changed: true
-      name: Window
-    - entity: binary_sensor.office_presence_occupancy
-      name: Motion
-      show_last_changed: true
+- type: vertical-stack
+  cards:
+    - type: heading
+      heading: Bathroom
+      badges:
+        - entity: sensor.bathroom_environment_temperature
+          name: Temperature
+        - entity: sensor.bathroom_environment_humidity
+          name: Humidity
+    - type: glance
+      entities:
+        - entity: binary_sensor.bathroom_door_contact
+          show_last_changed: true
+          name: Door
+        - entity: binary_sensor.bathroom_window_contact
+          show_last_changed: true
+          name: Window
+        - entity: binary_sensor.bathroom_water_leak_water_leak
+          name: Leak
+          show_last_changed: true
+- type: vertical-stack
+  cards:
+  - type: heading
+    heading: Office
+    badges:
     - entity: binary_sensor.office_mmwave_region_1
       name: Presence
-      show_last_changed: true
+      color: state
+      state_content: last_changed
+      #show_last_changed: true
     - entity: sensor.office_illuminance_illuminance_lux
       name: Illuminance
-    - entity: light.awtrix_6d6f50_matrix
-      name: Awtrix
-      show_last_changed: true
-    - entity: light.office_strip
-      name: Strip
-      show_last_changed: true
     - entity: sensor.office_temperature
       name: Temperature
     - entity: sensor.office_humidity
       name: Humidity
-    - entity: media_player.office
-      name: Sonos
-      show_last_changed: true
-    - entity: switch.office_sonos
-      name: Sonos
-      show_last_changed: true
-    - entity: binary_sensor.office_sonos_family
-      name: Sonos
-      show_last_changed: true
-    - entity: media_player.office_smart_display
-      name: "Home Hub"
-      show_last_changed: true
-    - entity: sensor.office_air_co2
-      name: "CO₂"
-    - entity: sensor.office_air_temperature
-      name: "Temperature"
-    - entity: sensor.office_air_humidity
-      name: "Humidity"
-    - entity: sensor.office_air_voc
-      name: "VOC"
-    - entity: sensor.office_air_pm25
-      name: "PM 2.5"
-- type: glance
-  title: Spare bedroom
-  entities:
-    - entity: binary_sensor.spare_bedroom_door_contact
-      show_last_changed: true
-      name: Door
-    - entity: binary_sensor.spare_bedroom_window_left_contact
-      show_last_changed: true
-      name: Left
-    - entity: binary_sensor.spare_bedroom_window_right_contact
-      show_last_changed: true
-      name: Right
-    - entity: switch.spare_bedroom_socket
-      show_last_changed: true
-      name: Socket
-    - entity: media_player.person1
-      name: Squeezebox
-      show_last_changed: true
-    - entity: sensor.spare_bedroom_environment_temperature
-      name: Temperature
-    - entity: climate.spare_bedroom_radiator
-      name: Radiator
+  - type: glance
+    columns: 6
+    entities:
+      - entity: binary_sensor.office_door_contact
+        show_last_changed: true
+        name: Door
+      - entity: binary_sensor.office_window_contact
+        show_last_changed: true
+        name: Window
+      - entity: binary_sensor.office_presence_occupancy
+        name: Motion
+        show_last_changed: true
+      - entity: light.awtrix_6d6f50_matrix
+        name: Awtrix
+        show_last_changed: true
+      - entity: light.office_strip
+        name: Strip
+        show_last_changed: true
+      - entity: media_player.office
+        name: Sonos
+        show_last_changed: true
+      - entity: switch.office_sonos
+        name: Sonos
+        show_last_changed: true
+      - entity: binary_sensor.office_sonos_family
+        name: Sonos
+        show_last_changed: true
+      - entity: media_player.office_smart_display
+        name: "Home Hub"
+        show_last_changed: true
+      - entity: sensor.office_air_co2
+        name: "CO₂"
+      - entity: sensor.office_air_voc
+        name: "VOC"
+      - entity: sensor.office_air_pm25
+        name: "PM 2.5"
+- type: vertical-stack
+  cards:
+  - type: heading
+    heading: Spare bedroom
+    badges:
+      - entity: sensor.spare_bedroom_environment_temperature
+        name: Temperature
+  - type: glance
+    columns: 6
+    entities:
+      - entity: binary_sensor.spare_bedroom_door_contact
+        show_last_changed: true
+        name: Door
+      - entity: binary_sensor.spare_bedroom_window_left_contact
+        show_last_changed: true
+        name: Left
+      - entity: binary_sensor.spare_bedroom_window_right_contact
+        show_last_changed: true
+        name: Right
+      - entity: switch.spare_bedroom_socket
+        show_last_changed: true
+        name: Socket
+      - entity: media_player.person1
+        name: Squeezebox
+        show_last_changed: true
+      - entity: climate.spare_bedroom_radiator
+        name: Radiator
 - type: glance
   title: Upstairs hall
   entities:
