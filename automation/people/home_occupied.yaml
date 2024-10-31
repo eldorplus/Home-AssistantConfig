@@ -13,7 +13,7 @@ trigger:
     to: 'on'
 condition:
   - condition: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     state: 'off'
   - condition: or
     conditions:

@@ -37,7 +37,7 @@ condition:
       state: 'off'
     # House is occupied
     - condition: state
-      entity_id: input_boolean.home_occupied
+      entity_id: binary_sensor.home_occupied
       state: 'on'
     # Sun is relatively low
     - condition: numeric_state

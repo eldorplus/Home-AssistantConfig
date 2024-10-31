@@ -15,7 +15,7 @@ trigger:
 condition:
   - condition: state
     entity_id: 
-      - input_boolean.home_occupied
+      - binary_sensor.home_occupied
       - input_boolean.bedtime
     state: 'on'
   - condition: state

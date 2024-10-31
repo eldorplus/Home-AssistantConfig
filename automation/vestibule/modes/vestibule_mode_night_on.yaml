@@ -64,7 +64,7 @@ condition:
       conditions:
     # We're not away
       - condition: state
-        entity_id: input_boolean.home_occupied
+        entity_id: binary_sensor.home_occupied
         state: 'on'
       - condition: state
         entity_id: input_boolean.guest_mode

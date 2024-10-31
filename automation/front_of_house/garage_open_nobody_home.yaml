@@ -10,7 +10,7 @@ condition:
     entity_id: sensor.home_person2_distance
     below: 100
   - condition: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     state: 'off'
 action:
   - service: notify.mobile_app_pixel_xl

@@ -11,7 +11,7 @@ trigger:
 condition:
   # Home occupied
   - condition: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     state: 'on'
   # Not currently Off
   - condition: template

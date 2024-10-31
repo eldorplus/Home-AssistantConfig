@@ -255,7 +255,7 @@ cards:
           options:
             show_last_changed: true
       exclude:
-        - entity_id: input_boolean.home_occupied
+        - entity_id: binary_sensor.home_occupied
 
   - type: custom:auto-entities
     show_empty: false
@@ -298,6 +298,7 @@ cards:
             show_last_changed: true
       exclude:
         - device_manufacturer: 'Frigate'
+        - entity_id: binary_sensor.home_occupied
 
   - type: custom:auto-entities
     show_empty: false

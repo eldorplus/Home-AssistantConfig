@@ -104,7 +104,7 @@ cards:
   show_header_toggle: false
   entities:
   - input_select.house
-  - entity: input_boolean.home_occupied
+  - entity: binary_sensor.home_occupied
     secondary_info: last-changed
     state_color: true
   - type: divider

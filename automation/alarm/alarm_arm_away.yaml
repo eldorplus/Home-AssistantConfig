@@ -3,13 +3,13 @@ alias: 'Alarm arm away'
 trigger:
   - platform: state
     entity_id: 
-      - input_boolean.home_occupied
+      - binary_sensor.home_occupied
       - group.downstairs_occupied
     to: 'off'
 condition:
   - condition: state
     entity_id: 
-      - input_boolean.home_occupied
+      - binary_sensor.home_occupied
       - group.downstairs_occupied
     state: 'off'
 action:

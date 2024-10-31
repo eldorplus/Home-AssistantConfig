@@ -9,7 +9,7 @@ condition:
   condition: and
   conditions:
     - condition: state
-      entity_id: input_boolean.home_occupied
+      entity_id: binary_sensor.home_occupied
       state: 'on'
     - condition: state
       entity_id: input_boolean.lighting_automations

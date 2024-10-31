@@ -22,7 +22,7 @@ cards:
     - entity: input_boolean.all_away
       secondary_info: last-changed
       state_color: true
-    - entity: input_boolean.home_occupied
+    - entity: binary_sensor.home_occupied
       secondary_info: last-changed
       state_color: true
     - entity: input_boolean.holiday_mode

@@ -18,7 +18,7 @@ trigger:
     below: 1000
 condition:
   - condition: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     state: 'off'
     for: '00:10:00'
   - condition: numeric_state

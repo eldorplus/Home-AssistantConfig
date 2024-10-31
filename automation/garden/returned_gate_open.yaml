@@ -3,7 +3,7 @@ alias: 'Returned gate open'
 initial_state: 'on'
 trigger:
   - platform: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     to: 'on'
   - platform: state
     entity_id: input_boolean.adults_away

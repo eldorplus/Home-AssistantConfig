@@ -8,7 +8,7 @@ trigger:
     entity_id: input_boolean.bedtime
     to: 'on'
   - platform: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     to: 'off'
 condition:
   - condition: state
@@ -22,7 +22,7 @@ condition:
         entity_id: input_boolean.bedtime
         state: 'on'
       - condition: state
-        entity_id: input_boolean.home_occupied
+        entity_id: binary_sensor.home_occupied
         state: 'off'
 action:
   - service: switch.turn_off

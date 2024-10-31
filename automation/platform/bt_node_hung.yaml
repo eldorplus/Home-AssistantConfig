@@ -7,12 +7,12 @@ trigger:
   - platform: event
     event_type: automation_reloaded
   - platform: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     to: 'off'
     for: '00:15:00'
 condition:
   - condition: state
-    entity_id: input_boolean.home_occupied
+    entity_id: binary_sensor.home_occupied
     state: 'off'
   - condition: or
     conditions:
