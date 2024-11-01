@@ -13,6 +13,12 @@ conditions:
       - condition: state
         entity_id: sensor.person2_work_events
         state: 'unavailable'
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.person2_on_holiday
+    state: 'off'
 actions:
   - action: media_player.play_media
     data:
