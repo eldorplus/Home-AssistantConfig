@@ -1,0 +1,26 @@
+id: 'office_calendar_announcement'
+alias: 'Office calendar announcement'
+initial_state: 'on'
+triggers:
+  - trigger: state
+    entity_id: input_boolean.office_occupied
+    to: 'on'
+conditions:
+  - condition: time
+    before: '09:00:00'
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: sensor.person2_work_events
+        state: 'unavailable'
+actions:
+  - action: media_player.play_media
+    data:
+      media_content_id: >-
+        media-source://tts/tts.piper?message=Today you have the following meetings. {%- for event in states('sensor.person2_work_events')|from_json %}{% if today_at(event.start) > now() %}{% if not loop.first %} and{% endif %} {{ event.summary }} at {{ event.start }}{% if not loop.last %},{% endif %}{% endif %}{%- endfor %}
+      media_content_type: music
+      announce: true
+      extra:
+        volume: 20
+    target:
+      entity_id: media_player.office_sonos_cloud

@@ -20,4 +20,4 @@
           {%- set fms.events = fms.events + [event] %}
         {%- endfor %}
       {%- endfor %}
-      {% for event in fms.events %}{% if not loop.first %},{% endif %}{ 'start':'{{ event.start|as_timestamp()|timestamp_custom("%H:%M") }}', 'summary':'{{event.summary}}' }{% endfor %}
+      [{% for event in fms.events %}{% if not loop.first %},{% endif %}{ "start":"{{ event.start|as_timestamp()|timestamp_custom('%H:%M') }}", "summary":"{{event.summary}}" }{% endfor %}]
