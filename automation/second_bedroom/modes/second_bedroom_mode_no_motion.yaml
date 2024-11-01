@@ -10,9 +10,6 @@ trigger:
     entity_id: binary_sensor.second_bedroom_motion_occupancy
     to: 'off'
     for: '00:03:00'
-  - platform: numeric_state
-    entity_id: sensor.second_bedroom_light_sensor_illuminance_lux
-    above: 32
 condition:
   - condition: state
     entity_id: input_boolean.second_bedroom_occupied
@@ -20,15 +17,10 @@ condition:
   - condition: state
     entity_id: input_select.second_bedroom
     state: 'Motion'
-  - condition: or
-    conditions:
-      - condition: state
-        entity_id: binary_sensor.second_bedroom_motion_occupancy
-        state: 'off'
-        for: '00:03:00'
-      - condition: numeric_state
-        entity_id: sensor.second_bedroom_light_sensor_illuminance_lux
-        above: 32
+  - condition: state
+    entity_id: binary_sensor.second_bedroom_motion_occupancy
+    state: 'off'
+    for: '00:03:00'
 action:
   - service: input_select.select_option
     data:

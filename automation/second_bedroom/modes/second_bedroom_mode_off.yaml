@@ -22,6 +22,13 @@ trigger:
     - 'Bedtime'
     - 'Wake'
     for: '00:30:00'
+  - platform: numeric_state
+    entity_id: sensor.second_bedroom_light_sensor_illuminance_lux
+    above: 32
+    id: lux
+  - platform: numeric_state
+    entity_id: sensor.second_bedroom_light_sensor_illuminance_lux
+    above: 42
 condition:
   - condition: template
     value_template: "{{ not is_state('input_select.second_bedroom','Off') }}"
@@ -45,6 +52,14 @@ condition:
         - input_boolean.person1_in_bed
       state: 'off'
       for: '00:05:00'
+    - condition: and
+      conditions:
+      # Don't turn off if we just turned on
+      - condition: trigger
+        id: lux
+      - condition: template
+        value_template: >-
+          {{ states.input_select.second_bedroom.last_changed < now() - timedelta(minutes=1) }}
 action:
   - service: input_select.select_option
     data:
