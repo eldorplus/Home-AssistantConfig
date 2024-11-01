@@ -32,6 +32,7 @@ action:
               media_content_id: >-
                 media-source://tts/tts.piper?message=The living room door just opened, maybe Luna has slipped in
               media_content_type: music
+              announce: true
               extra:
                 volume: 20
       - conditions:
@@ -43,6 +44,7 @@ action:
               media_content_id: >-
                 media-source://tts/tts.piper?message=The living room door just opened and closed, maybe Luna has slipped in
               media_content_type: music
+              announce: true
               extra:
                 volume: 20
             target:

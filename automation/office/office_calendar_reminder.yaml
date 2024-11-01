@@ -20,5 +20,6 @@ actions:
       media_content_type: music
       extra:
         volume: 20
+      announce: true
     target:
       entity_id: media_player.office_sonos_cloud

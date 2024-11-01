@@ -49,6 +49,7 @@ action:
               media_content_id: >-
                 media-source://tts/tts.piper?message=The front door has been left open
               media_content_type: music
+              announce: true
               extra:
                 volume: 25
             target:
@@ -64,6 +65,7 @@ action:
               media_content_id: >-
                 media-source://tts/tts.piper?message=The front door has been left open
               media_content_type: music
+              announce: true
               extra:
                 volume: 25
             target:
@@ -79,6 +81,7 @@ action:
               media_content_id: >-
                 media-source://tts/tts.piper?message=The front door has been left open
               media_content_type: music
+              announce: true
               extra:
                 volume: 25
             target:

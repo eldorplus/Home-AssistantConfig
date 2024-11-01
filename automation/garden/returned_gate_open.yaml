@@ -22,6 +22,7 @@ action:
       media_content_id: >-
         media-source://tts/tts.piper?message=The garden gate was opened while you were away, and is still open
       media_content_type: music
+      announce: true
       extra:
         volume: 25
     target:

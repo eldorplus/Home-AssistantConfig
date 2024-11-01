@@ -20,6 +20,7 @@ action:
       media_content_id: >-
         media-source://tts/tts.piper?message=The {{ trigger.to_state.name }} has been left open and it is {{ states('sensor.accuhome_apparent_temperature') }} {{ state_attr('sensor.accuhome_apparent_temperature','unit_of_measurement') }} outside
       media_content_type: music
+      announce: true
       extra:
         volume: 25
     target:

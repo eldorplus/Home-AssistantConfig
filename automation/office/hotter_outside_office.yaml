@@ -29,6 +29,7 @@ action:
       media_content_id: >-
               media-source://tts/tts.piper?message=It's now hotter outside than inside, you should close the window.
       media_content_type: music
+      announce: true
       extra:
         volume: 10
     target:

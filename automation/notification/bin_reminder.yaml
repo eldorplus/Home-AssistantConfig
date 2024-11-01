@@ -27,6 +27,7 @@ action:
       media_content_id: >-
         media-source://tts/tts.piper?message=The {{ state_attr('sensor.next_bin_collection','bin_type') }} bin is due for collection {{ states('sensor.next_bin_collection') }} and it hasn't been put out yet.
       media_content_type: music
+      announce: true
       extra:
         volume: 25
     target:
