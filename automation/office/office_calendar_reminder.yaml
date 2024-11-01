@@ -1,0 +1,24 @@
+id: 'office_calendar_reminder'
+alias: 'Office calendar reminder'
+initial_state: 'on'
+triggers:
+  - trigger: calendar
+    entity_id: calendar.person2_work
+    event: start
+conditions:
+  - condition: state
+    entity_id: input_boolean.office_occupied
+    state: 'on'
+  - condition: template
+    value_template: >-
+      {{ "Reminder:" in trigger.calendar_event.summary }}
+actions:
+  - action: media_player.play_media
+    data:
+      media_content_id: >-
+              media-source://tts/tts.piper?message=Remember to {{ trigger.calendar_event.summary|replace("Reminder: ","") }}
+      media_content_type: music
+      extra:
+        volume: 20
+    target:
+      entity_id: media_player.office_sonos_cloud

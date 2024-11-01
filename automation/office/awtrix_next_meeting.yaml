@@ -15,6 +15,9 @@ condition:
   - condition: state
     entity_id: input_boolean.office_occupied
     state: 'on'
+  - condition: template
+    value_template: >-
+      {{ "Reminder: " not in state_attr('calendar.person2_work','message') }}
 action:
   - choose:
         # No meeting in next half hour
