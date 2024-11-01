@@ -1,0 +1,18 @@
+- trigger:
+  - trigger: state
+    entity_id: calendar.person2_work
+  action:
+  - action: calendar.get_events
+    target:
+      entity_id: calendar.person2_work
+    data:
+      start_date_time: "{{ today_at('00:00:00') }}"
+      duration: 
+        hours: 24
+    response_variable: agenda
+  sensor:
+  - name: 'person2 work events'
+    unique_id: 'person2_work_events'
+    state: >-
+      {%- for event in agenda["calendar.person2_work"]["events"] %}{% if event.start|as_datetime > now() and "Reminder:" not in event.summary %}{% if not loop.first %},{% endif %}{{ event }}{% endif %}{% endfor %}
+
