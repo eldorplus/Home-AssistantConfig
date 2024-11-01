@@ -1,4 +1,5 @@
 title: Upstairs automations
+type: masonry
 id: automaitons-upstairs
 path: automations-upstairs
 icon: mdi:home-floor-1

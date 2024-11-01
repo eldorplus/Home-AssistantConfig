@@ -1,4 +1,5 @@
 title: Weather
+type: masonry
 id: weather
 path: weather
 icon: mdi:weather-partly-snowy-rainy

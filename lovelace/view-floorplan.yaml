@@ -1,4 +1,5 @@
 title: Floorplan
+type: masonry
 id: floor-plan
 path: floor-plan
 icon: mdi:floor-plan

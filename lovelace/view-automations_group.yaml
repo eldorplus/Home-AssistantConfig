@@ -1,4 +1,5 @@
 title: Automations
+type: masonry
 id: automations_group
 path: automations_group
 icon: mdi:account-group

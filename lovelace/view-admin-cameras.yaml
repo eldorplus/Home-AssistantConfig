@@ -1,4 +1,5 @@
 title: Camera admin
+type: masonry
 id: camera_admin
 path: camera_admin
 icon: mdi:camera-control

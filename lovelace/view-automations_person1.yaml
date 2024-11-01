@@ -1,4 +1,5 @@
 title: Automations person1
+type: masonry
 id: automations_person1
 path: automations_person1
 icon: mdi:account-circle

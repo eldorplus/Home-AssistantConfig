@@ -1,4 +1,5 @@
 title: Media players 
+type: masonry
 id: media
 path: media
 icon: mdi:music-box

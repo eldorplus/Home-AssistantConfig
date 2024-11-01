@@ -1,4 +1,5 @@
 title: Bedroom automations
+type: masonry
 id: automations_bedrooms
 path: automations_bedrooms
 icon: mdi:bed

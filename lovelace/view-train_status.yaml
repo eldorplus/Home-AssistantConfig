@@ -1,4 +1,5 @@
 title: Train status
+type: masonry
 id: train_status
 path: trains
 icon: mdi:train

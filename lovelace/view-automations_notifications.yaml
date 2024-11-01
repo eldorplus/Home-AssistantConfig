@@ -1,4 +1,5 @@
 title: Notification automations
+type: masonry
 id: notifications
 path: notifications
 icon: mdi:bell-badge

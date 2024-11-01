@@ -1,4 +1,5 @@
 title: Devices
+type: masonry
 id: devices
 path: devices
 icon: mdi:engine

@@ -1,4 +1,5 @@
 title: Lighting control
+type: masonry
 id: lighting_control
 path: lighting_control
 icon: mdi:home-lightbulb
