@@ -14,5 +14,5 @@
   - name: 'person2 work events'
     unique_id: 'person2_work_events'
     state: >-
-      {%- for event in agenda["calendar.person2_work"]["events"] %}{% if event.start|as_datetime > now() and "Reminder:" not in event.summary %}{% if not loop.first %},{% endif %}{{ event }}{% endif %}{% endfor %}
+      {% for event in agenda["calendar.person2_work"]["events"] %}{% if event.start|as_datetime > now() and "Reminder:" not in event.summary %}{% if not loop.first %},{% endif %}{ 'start':'{{ event.start|as_timestamp()|timestamp_custom("%H:%M") }}', 'summary':'{{event.summary}}' }{% endif %}{% endfor %}
 
