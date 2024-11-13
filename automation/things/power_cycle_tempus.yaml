@@ -1,0 +1,20 @@
+id: 'power_cycle_tempus'
+alias: 'Power cycle tempus'
+initial_state: 'on'
+triggers:
+  - trigger: state
+    entity_id: device_tracker.rpi_tempus
+    to: 'not_home'
+    for: '00:10:00'
+conditions:
+  - condition: state
+    entity_id: switch.cloudfree_usb_switch_tempus
+    state: 'on'
+actions:
+  - action: switch.turn_off
+    target:
+      entity_id: switch.cloudfree_usb_switch_tempus
+  - delay: '00:10:00'
+  - action: switch.turn_on
+    target:
+      entity_id: switch.cloudfree_usb_switch_tempus
