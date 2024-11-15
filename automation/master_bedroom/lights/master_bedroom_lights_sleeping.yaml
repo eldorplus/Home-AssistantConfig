@@ -1,13 +1,13 @@
-id: 'master_bedroom_lights_night'
+id: 'master_bedroom_lights_sleeping'
 initial_state: 'on'
-alias: 'Master bedroom lights night'
+alias: 'Master bedroom lights sleeping'
 trigger:
   - platform: state
     entity_id: input_select.master_bedroom
-    to: 'Night'
+    to: 'Sleeping'
   - platform: state
     entity_id: input_select.house
-    to: 'Night'
+    to: 'Sleeping'
 condition:
   - condition: state
     entity_id: input_boolean.lighting_automations
@@ -16,7 +16,7 @@ condition:
     conditions:
     - condition: state
       entity_id: input_select.master_bedroom
-      state: 'Night'
+      state: 'Sleeping'
     - condition: and
       conditions:
       - condition: state
@@ -24,7 +24,7 @@ condition:
         state: 'Auto'
       - condition: state
         entity_id: input_select.house
-        state: 'Night'
+        state: 'Sleeping'
 action:
   - service: light.turn_off
     data:
