@@ -1,18 +1,23 @@
+type: sections
+max_columns: 4
 title: Frigate
-type: masonry
 id: frigate
 path: frigate
 icon: mdi:cctv
-panel: true
-cards:
-  - type: custom:frigate-card
-    cameras:
-      - camera_entity: camera.front
-        live_provider: go2rtc
-        camera_name: front
-        frigate_url: http://192.168.0.13:5000/
-        title: Front
-    menu:
-      style: overlay
-      position: right
-i        ui: true
+sections:
+  - type: grid
+    cards:
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.front
+            live_provider: go2rtc
+            camera_name: front
+            frigate_url: http://192.168.0.13:5000/
+            title: Front
+        menu:
+          style: overlay
+          position: right
+        grid_options:
+          columns: full
+          rows: 4
+    column_span: 4

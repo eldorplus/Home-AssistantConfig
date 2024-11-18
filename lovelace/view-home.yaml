@@ -170,7 +170,6 @@ cards:
         - camera_entity: camera.front
           camera_name: front
           frigate_url: http://custodes.family:5000/
-          #live_provider: webrtc-card
           live_provider: go2rtc
           title: Front
       live:
