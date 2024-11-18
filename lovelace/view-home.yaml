@@ -369,8 +369,6 @@ cards:
       title: Lights
     sort:
       method: name
-    sort:
-      method: name
     filter:
       include:
         - domain: light
