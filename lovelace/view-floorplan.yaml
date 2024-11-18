@@ -1,9 +1,8 @@
 title: Floorplan
-type: masonry
+type: panel
 id: floor-plan
 path: floor-plan
 icon: mdi:floor-plan
-panel: true
 cards:
   - type: custom:floorplan-card
     config:
