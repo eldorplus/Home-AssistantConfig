@@ -1,9 +1,8 @@
 title: Train status
-type: masonry
+type: panel
 id: train_status
 path: trains
 icon: mdi:train
-panel: true
 cards:
 - type: vertical-stack
   cards:
