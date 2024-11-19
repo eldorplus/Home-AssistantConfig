@@ -34,7 +34,7 @@ action:
             state: 'off'
           - condition: template
             value_template: >-
-              {{ ( states('sensor.home_person1_distance')|float < near_home ) or ( is_state('person.person1','station Train Station') or is_state('person.person1','station2') ) }}
+              {{ ( states('sensor.home_person1_distance')|float < near_home ) }}
         sequence:
           - service: mqtt.publish
             data:
