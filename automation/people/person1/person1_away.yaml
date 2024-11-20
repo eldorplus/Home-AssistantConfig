@@ -4,6 +4,7 @@ initial_state: 'on'
 trigger:
   - platform: state
     entity_id: device_tracker.sm_a546b
+    id: 'gps'
   - platform: state
     entity_id: 
       - device_tracker.person1_bt_mobile_2
@@ -11,10 +12,13 @@ trigger:
       - device_tracker.person_person1_wifi
       - device_tracker.nmap_tracker_samsung_a54
     to: 'not_home'
+    id: 'passive'
   - platform: event
     event_type: automation_reloaded
+    id: 'reload'
   - platform: homeassistant
     event: start
+    id: 'start'
 condition:
   # currently home
   - condition: state
@@ -45,10 +49,10 @@ condition:
       - condition: template
         value_template: "{{ (expand('group.person_person1')|selectattr('state','eq','home')|list|count / expand('group.person_person1')|list|count) < 1}}"
       - condition: template
-        value_template: "{{ distance('device_tracker.sm_a546b')|float > 0.3 }}"
+        value_template: "{{ distance('device_tracker.sm_a546b')|float > 0.3 and trigger.id == 'gps' }}"
     # Far away
     - condition: template
-      value_template: "{{ distance('device_tracker.sm_a546b')|float > 0.6 }}"
+      value_template: "{{ distance('device_tracker.sm_a546b')|float > 0.6 and trigger.id == 'gps' }}"
 action:
   - service: script.turn_on
     data:
