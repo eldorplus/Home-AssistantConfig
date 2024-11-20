@@ -5,6 +5,8 @@ trigger:
   - platform: state
     entity_id: weather.tomorrow_io_home_nowcast
 variables:
+  temperature: >-
+    {{ states('sensor.tomorrow_io_home_feels_like')|round(1,'half') }}{{ state_attr('sensor.tomorrow_io_home_feels_like','temperature_unit') }}
   weather_icon: >-
     {% set weather_cond_day = ({
     "clear-night":"13345",
