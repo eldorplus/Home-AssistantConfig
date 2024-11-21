@@ -8,7 +8,7 @@ variables:
   temperature: >-
     {{ states('sensor.tomorrow_io_home_feels_like')|round(1,'half') }}{{ state_attr('sensor.tomorrow_io_home_feels_like','unit_of_measurement') }}
   colour: >-
-    {% if states('sensor.tomorrow_io_home_feels_like')|round(1)|float <= 0 %}#7da5ff{% elif states('sensor.tomorrow_io_home_feels_like')|round(1)|float >= 25 %}#ff9999{% else %}#ffffff{% endif %}
+    {% if states('sensor.tomorrow_io_home_feels_like')|round(1)|float <= 0 %}#6666ff{% elif states('sensor.tomorrow_io_home_feels_like')|round(1)|float >= 25 %}#ff7777{% else %}#ffffff{% endif %}
   weather_icon: >-
     {% set weather_cond_day = ({
     "clear-night":"13345",
