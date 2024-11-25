@@ -4,15 +4,15 @@ initial_state: 'on'
 trigger:
   - platform: state
     entity_id:
+      - device_tracker.car_gps
       - sensor.skoda_superb_places
       - sensor.skoda_to_home_skoda_superb_position_distance
-      - device_tracker.car_gps
 variables:
   where: >-
     {% if states('sensor.skoda_superb_places') != 'unknown' %} 
       {% if state_attr('sensor.skoda_superb_places','place_name')|is_defined and (state_attr('sensor.skoda_superb_places','place_name') != state_attr('sensor.skoda_superb_places','street')) %}{{ state_attr('sensor.skoda_superb_places','place_name') + ", " }}{% endif %}{% if state_attr('sensor.skoda_superb_places','street_number')|is_defined %}{{ state_attr('sensor.skoda_superb_places','street_number') + " " }}{% endif %}{{ state_attr('sensor.skoda_superb_places','street')  }}, {{ state_attr('sensor.skoda_superb_places','city')  }}
     {% else %}
-      unknown
+      somewhere
     {% endif %}
 action:
   - service: input_text.set_value
@@ -26,4 +26,3 @@ action:
         {% else %}
           Near {{ where }}
         {% endif %}
-
