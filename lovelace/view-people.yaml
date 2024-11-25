@@ -494,6 +494,101 @@ cards:
       https://github.com/user-attachments/assets/4ef72288-5ee9-4fa6-b2f3-c34c4160cf42
     charging_image: >-
       https://github.com/user-attachments/assets/4ef72288-5ee9-4fa6-b2f3-c34c4160cf42
+  - title: MySkoda Superb
+    image_url: /local/images/skoda_superb_kombi.png
+    charging_image_url: ''
+    image_url_type: image
+    charging_image_url_type: image
+    vehicle_type: Fuel
+    unit_type: mi
+    level_entity: ''
+    range_entity: ''
+    charging_status_entity: ''
+    location_entity: device_tracker.skoda_superb_combi_position
+    mileage_entity: sensor.skoda_superb_combi_mileage
+    show_level: true
+    show_range: true
+    show_location: true
+    show_mileage: true
+    show_car_state: true
+    show_charge_limit: true
+    icon_grid_entities:
+      - binary_sensor.skoda_superb_combi_bonnet
+      - binary_sensor.skoda_superb_combi_doors_locked
+      - binary_sensor.skoda_superb_combi_trunk
+      - binary_sensor.skoda_superb_combi_windows
+      - input_boolean.lovelace_car_more
+    custom_icons:
+      binary_sensor.skoda_superb_combi_windows:
+        active: mdi:window-open
+        inactive: mdi:window-closed
+      binary_sensor.skoda_superb_combi_bonnet:
+        active: phu:tesla-hood
+        inactive: phu:tesla-hood
+      binary_sensor.skoda_superb_combi_trunk:
+        active: phu:tesla-trunk
+        inactive: phu:tesla-trunk
+      binary_sensor.skoda_superb_combi_doors_locked:
+        active: mdi:car-door-lock-open
+      input_boolean.lovelace_car_more:
+        active: mdi:arrow-collapse-up
+        inactive: mdi:arrow-expand-down
+    icon_interactions:
+      input_boolean.lovelace_car_more:
+        type: toggle
+      binary_sensor.skoda_superb_combi_bonnet:
+        type: more-info
+      binary_sensor.skoda_superb_combi_doors_locked:
+        type: more-info
+      binary_sensor.skoda_superb_combi_trunk:
+        type: more-info
+      binary_sensor.skoda_superb_combi_windows:
+        type: more-info
+    icon_styles: {}
+    icon_labels: {}
+    hybrid_display_order: fuel_first
+    car_state_entity: lock.skoda_superb_combi_door_lock
+    charge_limit_entity: ''
+    icon_size: 24
+    icon_gap: 12
+    showEntityInformation: true
+    carStateTextColor: ''
+    rangeTextColor: ''
+    percentageTextColor: ''
+    icon_sizes: {}
+    engine_on_entity: ''
+    row_separator_color: '#808080'
+    row_separator_height: 1
+    row_separators:
+      '0':
+        color: var(--uvc-info-text-color)
+        height: 1
+        icon_gap: 20
+        horizontalAlignment: center
+        verticalAlignment: middle
+    iconActiveColor: ''
+    iconInactiveColor: ''
+    useFormattedEntities: true
+    mainImageHeight: 180px
+    chargingImageHeight: 180px
+    showTitle: true
+    type: custom:ultra-vehicle-card
+    battery_level_entity: ''
+    battery_range_entity: ''
+    fuel_level_entity: sensor.skoda_superb_combi_fuel_level
+    fuel_range_entity: sensor.skoda_superb_range_miles
+    show_battery: true
+    show_battery_range: true
+    show_fuel: true
+    show_fuel_range: true
+    cardBackgroundColor: ''
+    barBackgroundColor: ''
+    barFillColor: ''
+    limitIndicatorColor: ''
+    image: >-
+      https://github.com/user-attachments/assets/4ef72288-5ee9-4fa6-b2f3-c34c4160cf42
+    charging_image: >-
+      https://github.com/user-attachments/assets/4ef72288-5ee9-4fa6-b2f3-c34c4160cf42
   - type: conditional
     conditions:
       - entity: input_boolean.lovelace_car_more
@@ -514,7 +609,7 @@ cards:
             red: 0
         - type: gauge
           name: Fuel
-          entity: sensor.skoda_superb_fuel_level
+          entity: sensor.skoda_superb_combi_fuel_level
           max: 100
           min: 0
           severity:
@@ -529,3 +624,9 @@ cards:
         hours_to_show: 24
         entities:
           - device_tracker.skoda_superb_position
+  - type: custom:auto-entities
+    card:
+      type: entities
+    filter:
+      include:
+        - integration: myskoda
