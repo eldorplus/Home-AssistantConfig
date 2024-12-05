@@ -71,4 +71,4 @@ actions:
           entity_id: notify.debug_log
         data:
           message: >-
-            Action {{ action }}. Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
+            Second bedroom button action {{ action }}. Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}

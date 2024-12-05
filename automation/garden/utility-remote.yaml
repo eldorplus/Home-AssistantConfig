@@ -4,25 +4,12 @@ description: 'Toggle the garden lights when the remote is operated. They can tur
 initial_state: 'on'
 trigger:
   - platform: state
-    entity_id: sensor.utility_remote_action
-    to: 
-    - 'single'
-    - 'double'
-    - 'hold'
-condition:
-  - condition: or
-    conditions:
-      - condition: state
-        entity_id: switch.garden_lights
-        state: 'on'
-      - condition: and
-        conditions:
-          - condition: state
-            entity_id: sun.sun
-            state: below_horizon
-          - condition: state
-            entity_id: switch.garden_lights
-            state: 'off'
+    entity_id: event.utility_remote_action
+    to: ~
+    id: 'event'
+variables:
+  action: >-
+    {{ trigger.id if trigger.id != 'event' else trigger.to_state.attributes.event_type }}
 action:
   - choose:
       # Toggle the lights if they were off, or this was a single press
@@ -33,7 +20,7 @@ action:
                 entity_id: switch.garden_lights
                 state: 'off'
               - condition: template
-                value_template: "{{ trigger.to_state.state == 'single' }}"
+                value_template: "{{ action == 'single' }}"
         sequence:
           - alias: 'Toggle the lights'
             service: switch.toggle
@@ -41,14 +28,14 @@ action:
               entity_id: switch.garden_lights
       - conditions:
           - condition: template
-            value_template: "{{ trigger.to_state.state == 'double' }}"
+            value_template: "{{ action == 'double' }}"
         sequence:
           - alias: "Don't turn off the lights when we close the door"
             service: homeassistant.turn_off
             entity_id: automation.utility_door_open_after_sunset_turn_off
       - conditions:
           - condition: template
-            value_template: "{{ trigger.to_state.state == 'hold' }}"
+            value_template: "{{ action == 'hold' }}"
         sequence:
           - alias: "Don't turn off the lights when we close the door"
             service: homeassistant.turn_off
@@ -58,3 +45,9 @@ action:
         service: switch.toggle
         data:
           entity_id: switch.garden_lights
+      - service: notify.send_message
+        target: 
+          entity_id: notify.debug_log
+        data:
+          message: >-
+            Utility remote action {{ action }}. Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
