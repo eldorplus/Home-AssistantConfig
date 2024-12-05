@@ -3,9 +3,9 @@ initial_state: 'on'
 alias: 'Office dial action'
 trigger:
   - platform: state
-    entity_id: sensor.office_dial_moes_action
-    to: 'toggle'
-    id: 'toggle'
+    entity_id: event.office_dial_moes_action
+    to: ~
+    id: event
 action:
   - choose:
     - conditions:
@@ -25,3 +25,33 @@ action:
       - service: media_player.media_play
         data:
           entity_id: media_player.office
+    - conditions:
+      - condition: trigger
+        id: 'event'
+      - condition: template
+        value_template: >-
+          {{ trigger.to_state.attributes.event_type == 'toggle' }}
+      - condition: state
+        entity_id: media_player.office
+        state: 'playing'
+      sequence:
+      - service: media_player.media_pause
+        data:
+          entity_id: media_player.office
+    - conditions:
+      - condition: trigger
+        id: 'event'
+      - condition: template
+        value_template: >-
+          {{ trigger.to_state.attributes.event_type == 'toggle' }}
+      sequence:
+      - service: media_player.media_play
+        data:
+          entity_id: media_player.office
+    default:
+      - service: notify.send_message
+        target: 
+          entity_id: notify.debug_log
+        data:
+          message: >-
+            Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
