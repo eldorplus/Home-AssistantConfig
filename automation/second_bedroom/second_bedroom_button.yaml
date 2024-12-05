@@ -1,28 +1,27 @@
 id: 'second_bedroom_button'
 alias: 'Second bedroom button'
 initial_state: 'on'
-trigger:
-  - platform: state
-    entity_id: sensor.second_bedroom_button_action
-    to: 'single'
-    id: single
-  - platform: state
-    entity_id: sensor.second_bedroom_button_action
-    to: 'hold'
-    id: hold
-action:
+triggers:
+  - trigger: state
+    entity_id: event.second_bedroom_button_action
+    to: ~
+    id: 'event'
+variables:
+  action: >-
+    {{ trigger.id if trigger.id != 'event' else trigger.to_state.attributes.event_type }}
+actions:
   - choose:
       - conditions:
-          - condition: trigger
-            id: hold
+          - condition: template
+            value_template: "{{ action == 'hold' }}"
         sequence:
           - service: input_select.select_option
             data:
               entity_id: input_select.second_bedroom
               option: 'Bedtime'
       - conditions:
-          - condition: trigger
-            id: single
+          - condition: template
+            value_template: "{{ action == 'single' }}"
         sequence:
           - if:
               - condition: state
@@ -66,3 +65,10 @@ action:
                 data:
                   entity_id: input_select.second_bedroom
                   option: 'Off'
+    default:
+      - service: notify.send_message
+        target: 
+          entity_id: notify.debug_log
+        data:
+          message: >-
+            Action {{ action }}. Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
