@@ -15,24 +15,21 @@ conditions:
             id: event
           - condition: template
             value_template: >-
-              {{ trigger.to_state.attributes.event_type in ['volume_up','volume_down','next_track','prev_track'] }}
+              {{ trigger.to_state.attributes.event_type in ['brightness_step','brightness_step','color_temperature_step_up','color_temperature_step_down'] }}
       - condition: template
         value_template: "{{ trigger.entity_id == 'sensor.office_dial_moes_action' }}"
 variables:
+  action: >-
+    {{ trigger.id if trigger.id != 'event' else ('volume_'+trigger.to_state.attributes.direction if trigger.to_state.attributes.event_type == 'brightness_step' else ('next_track' if trigger.to_state.attributes.event_type == 'color_temperature_step_up' else 'prev_track') ) }}
   current_vol: "{{ state_attr('media_player.office','volume_level')|float(0) }}"
   vol_step: "{{ (trigger.to_state.attributes.action_step_size|float(12)/1000)|round(2) }}"
   new_vol: >-
-    {{ (min(1,(current_vol|float(0)+vol_step|float(0))))|round(2) if (trigger.id == 'volume_up' or trigger.to_state.attributes.event_type == 'volume_up') else (max(0,(current_vol|float(0)-vol_step|float(0))))|round(2) }}
+    {{ (min(1,(current_vol|float(0)+vol_step|float(0))))|round(2) if (trigger.id == 'volume_up' or (trigger.to_state.attributes.event_type == 'brightness_step' and trigger.to_state.attributes.direction == 'up')) else (max(0,(current_vol|float(0)-vol_step|float(0))))|round(2) }}
 action:
-  - service: notify.send_message
-    target: 
-      entity_id: notify.debug_log
-    data:
-      message: "Volume currently {{ current_vol }}, changing by {{ vol_step }} to {{ new_vol }}"
   - choose:
     - conditions:
-      - condition: trigger
-        id: 'volume_up'
+      - condition: template
+        value_template: "{{ action == 'volume_up' }}"
       sequence:
       - service: media_player.volume_set
         data:
@@ -40,8 +37,8 @@ action:
           volume_level: "{{ new_vol }}"
           #volume_level: "{{ min(1,state_attr('media_player.office','volume_level')|float(0)+(trigger.to_state.attributes.action_step_size|float(12)/1000)|round(2)) }}"
     - conditions:
-      - condition: trigger
-        id: 'volume_down'
+      - condition: template
+        value_template: "{{ action == 'volume_down' }}"
       sequence:
       - service: media_player.volume_set
         data:
@@ -49,16 +46,29 @@ action:
           volume_level: "{{ new_vol }}"
           #volume_level: "{{ max(0,state_attr('media_player.office','volume_level')|float(0)-(trigger.to_state.attributes.action_step_size|float(12)/1000)|round(2)) }}"
     - conditions:
-      - condition: trigger
-        id: 'next_track'
+      - condition: template
+        value_template: "{{ action == 'next_track' }}"
       sequence:
+      - service: media_player.media_play
+        data:
+          entity_id: media_player.office
       - service: media_player.media_next_track
         data:
           entity_id: media_player.office
     - conditions:
-      - condition: trigger
-        id: 'prev_track'
+      - condition: template
+        value_template: "{{ action == 'prev_track' }}"
       sequence:
+      - service: media_player.media_play
+        data:
+          entity_id: media_player.office
       - service: media_player.media_previous_track
         data:
           entity_id: media_player.office
+    default:
+      - service: notify.send_message
+        target: 
+          entity_id: notify.debug_log
+        data:
+          message: >-
+            Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
