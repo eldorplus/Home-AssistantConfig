@@ -1,28 +1,28 @@
 id: 'office_dial_rotate'
 initial_state: 'on'
 alias: 'Office dial rotate'
-trigger:
-  - platform: state
-    entity_id: sensor.office_dial_moes_action
-    to: brightness_step_up
-    id: volume_up
-  - platform: state
-    entity_id: sensor.office_dial_moes_action
-    to: brightness_step_down
-    id: volume_down
-  - platform: state
-    entity_id: sensor.office_dial_moes_action
-    to: color_temperature_step_up
-    id: next_track
-  - platform: state
-    entity_id: sensor.office_dial_moes_action
-    to: color_temperature_step_down
-    id: prev_track
+triggers:
+  - trigger: state
+    entity_id: event.office_dial_moes_action
+    to: ~
+    id: event
+conditions:
+  - condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: trigger
+            id: event
+          - condition: template
+            value_template: >-
+              {{ trigger.to_state.attributes.event_type in ['volume_up','volume_down','next_track','prev_track'] }}
+      - condition: template
+        value_template: "{{ trigger.entity_id == 'sensor.office_dial_moes_action' }}"
 variables:
   current_vol: "{{ state_attr('media_player.office','volume_level')|float(0) }}"
   vol_step: "{{ (trigger.to_state.attributes.action_step_size|float(12)/1000)|round(2) }}"
   new_vol: >-
-    {{ (min(1,(current_vol|float(0)+vol_step|float(0))))|round(2) if trigger.id == 'volume_up' else (max(0,(current_vol|float(0)-vol_step|float(0))))|round(2) }}
+    {{ (min(1,(current_vol|float(0)+vol_step|float(0))))|round(2) if (trigger.id == 'volume_up' or trigger.to_state.attributes.event_type == 'volume_up') else (max(0,(current_vol|float(0)-vol_step|float(0))))|round(2) }}
 action:
   - service: notify.send_message
     target: 
