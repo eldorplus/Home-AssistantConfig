@@ -3,19 +3,17 @@ initial_state: 'on'
 alias: 'Master bedroom button pushed'
 trigger:
   - platform: state
-    entity_id: 
-      - sensor.master_bedroom_button_action
-      - sensor.master_bedroom_button_r_action
-    to:
-    - 'single'
-    - 'double'
-    - 'hold'
+    entity_id:
+      - event.master_bedroom_button_action
+      - event.master_bedroom_button_r_action
+    to: ~
+    id: 'event'
 action:
   - choose:
     # Single press - turn the lights off if they're on, unless it's in motion mode where we turn it on. Turn them on otherwise.
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'single' }}"
+        value_template: "{{ (trigger.id == 'sensor' and trigger.to_state.state == 'single') or (trigger.id == 'event' and trigger.to_state.attributes.event_type == 'single') }}"
       sequence:
       - choose:
         - conditions:
@@ -51,7 +49,7 @@ action:
     # Double press, On if currently bedtime, else Bedtime
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'double' }}"
+        value_template: "{{ (trigger.id == 'sensor' and trigger.to_state.state == 'double') or (trigger.id == 'event' and trigger.to_state.attributes.event_type == 'double') }}"
       sequence:
       - choose:
         - conditions:
@@ -72,7 +70,7 @@ action:
     # Hold, Off if currently Sleeping, else Night
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'hold' }}"
+        value_template: "{{ (trigger.id == 'sensor' and trigger.to_state.state == 'hold') or (trigger.id == 'event' and trigger.to_state.attributes.event_type == 'hold') }}"
       sequence:
       - choose:
         - conditions:
@@ -90,8 +88,22 @@ action:
           data:
             entity_id: input_select.master_bedroom
             option: 'Sleeping'
+    # Do nothing on release
+    - conditions:
+      - condition: template
+        value_template: "{{ (trigger.id == 'sensor' and trigger.to_state.state == 'release') or (trigger.id == 'event' and trigger.to_state.attributes.event_type == 'release') }}"
+      sequence:
+      - service: script.turn_on
+        data:
+          target: script.nop
     default:
     - service: input_select.select_option
       data:
         entity_id: input_select.master_bedroom
         option: 'On'
+    - service: notify.send_message
+      target: 
+        entity_id: notify.debug_log
+      data:
+        message: >-
+          Trigger for master bedroom button was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
