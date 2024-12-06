@@ -10,23 +10,6 @@ action:
   - choose:
     - conditions:
       - condition: trigger
-        id: 'toggle'
-      - condition: state
-        entity_id: media_player.office
-        state: 'playing'
-      sequence:
-      - service: media_player.media_pause
-        data:
-          entity_id: media_player.office
-    - conditions:
-      - condition: trigger
-        id: 'toggle'
-      sequence:
-      - service: media_player.media_play
-        data:
-          entity_id: media_player.office
-    - conditions:
-      - condition: trigger
         id: 'event'
       - condition: template
         value_template: >-
