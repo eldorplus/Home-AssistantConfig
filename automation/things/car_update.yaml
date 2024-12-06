@@ -2,17 +2,32 @@ id: 'car_update_myskoda'
 alias: 'Car update for MySkoda'
 initial_state: 'on'
 triggers:
-  - trigger: time_pattern
-    minutes: '/15'
+  - trigger: state
+    entity_id: person.person2
+    to: ~
+    for: '00:01:00'
+    id: 'zones'
 conditions:
-  - condition: not
+  - condition: or
     conditions:
-      - condition: state
-        entity_id: device_tracker.skoda_superb_combi_position
-        state: 'home'
-      - condition: state
-        entity_id: person.person2
-        state: 'home'
+      - condition: trigger
+        id: 'arrive'
+      - condition: trigger
+        id: 'depart'
+      - condition: trigger
+        id: 'zones'
+      - condition: and
+        conditions:
+          - condition: trigger
+            id: 'time'
+          - condition: not
+            conditions:
+              - condition: state
+                entity_id: device_tracker.skoda_superb_combi_position
+                state: 'home'
+              - condition: state
+                entity_id: person.person2
+                state: 'home'
 actions:
   - action: homeassistant.update_entity
     data:
