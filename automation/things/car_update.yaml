@@ -1,0 +1,21 @@
+id: 'car_update_myskoda'
+alias: 'Car update for MySkoda'
+initial_state: 'on'
+triggers:
+  - trigger: time_pattern
+    minutes: '/15'
+conditions:
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: device_tracker.skoda_superb_combi_position
+        state: 'home'
+      - condition: state
+        entity_id: person.person2
+        state: 'home'
+actions:
+  - action: homeassistant.update_entity
+    data:
+      entity_id:
+        - device_tracker.skoda_superb_combi_position
+
