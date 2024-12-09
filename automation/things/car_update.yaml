@@ -3,31 +3,10 @@ alias: 'Car update for MySkoda'
 initial_state: 'on'
 triggers:
   - trigger: state
-    entity_id: person.person2
+    entity_id: binary_sensor.pixel_xl_android_auto
     to: ~
     for: '00:01:00'
-    id: 'zones'
-conditions:
-  - condition: or
-    conditions:
-      - condition: trigger
-        id: 'arrive'
-      - condition: trigger
-        id: 'depart'
-      - condition: trigger
-        id: 'zones'
-      - condition: and
-        conditions:
-          - condition: trigger
-            id: 'time'
-          - condition: not
-            conditions:
-              - condition: state
-                entity_id: device_tracker.skoda_superb_combi_position
-                state: 'home'
-              - condition: state
-                entity_id: person.person2
-                state: 'home'
+    id: 'auto'
 actions:
   - action: homeassistant.update_entity
     data:
