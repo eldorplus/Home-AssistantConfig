@@ -1,10 +1,10 @@
 default: warning
 logs:
   homeassistant.helpers.template: error
-  custom_components.myskoda: debug
+  custom_components.myskoda: info
   myskoda: info
-  myskoda.mqtt: debug
-  myskoda.rest_api: debug
+  myskoda.mqtt: info
+  myskoda.rest_api: info
 filters:
   homeassistant.components.rest:
     - "^JSON result was not a dictionary or list with 0th element a dictionary"
