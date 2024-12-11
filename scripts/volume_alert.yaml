@@ -5,11 +5,11 @@ sequence:
   - service: media_player.volume_set
     data:
       entity_id: media_player.family_room_display
-      volume_level: 0.8
+      volume_level: 0.5
   - service: media_player.play_media
     data:
       entity_id: media_player.family_room_display
-      media_content_id: http://192.168.0.12:8123/local/sounds/air-raid-siren-alert.mp3
+      media_content_id: http://192.168.0.12:8123/local/sounds/alerts/air-raid-siren-alert.mp3
       media_content_type: music
   - wait_template: "{{ is_state('media_player.family_room_display','playing') }}"
   - wait_template: "{{ is_state('media_player.family_room_display','idle') }}"

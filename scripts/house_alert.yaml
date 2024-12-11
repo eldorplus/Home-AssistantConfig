@@ -6,11 +6,11 @@ sequence:
   - service: media_player.volume_set
     data:
       entity_id: all
-      volume_level: 0.5
+      volume_level: 0.3
   - service: media_player.play_media
     data:
       entity_id: all
-      media_content_id: http://192.168.0.10:8123/local/sounds/sub_alert.mp3
+      media_content_id: http://192.168.0.10:8123/local/sounds/alerts/sub_alert.mp3
       media_content_type: music
   - delay: '00:00:02'
   # Wait for it to stop playing (5 second audio clip)
@@ -18,11 +18,16 @@ sequence:
     timeout: '00:00:06'
     continue_on_timeout: 'true'
   # Send an audio alert
-  - service: tts.google_cloud_say
+  - service: media_player.play_media
     data:
+      media_content_id: >-
+        media-source://tts/tts.piper?message=The following are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.my_downstairs_windows', 'entity_id') + state_attr('group.my_upstairs_windows', 'entity_id') + state_attr('group.my_exterior_doors', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}
+      media_content_type: music
+      announce: true
+      extra:
+        volume: 30
+    target:
       entity_id: all
-      message: >-
-        The following are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.my_downstairs_windows', 'entity_id') + state_attr('group.my_upstairs_windows', 'entity_id') + state_attr('group.my_exterior_doors', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}
   - delay: '00:00:02'
   # Wait for it to stop playing (2 minute timeout)
   - wait_template: "{{ is_state('media_player.cast_kitchen_speaker','idle') }}"
