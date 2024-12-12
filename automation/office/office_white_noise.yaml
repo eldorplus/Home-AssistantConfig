@@ -16,6 +16,9 @@ action:
     data:
       volume_level: 0.01
   - delay: '00:00:10'
+  - condition: state
+    entity_id: input_boolean.office_occupied
+    state: 'off'
   - service: media_player.play_media
     data:
       media_content_id: >-
@@ -24,10 +27,16 @@ action:
     target:
       entity_id: media_player.office
   - delay: '00:05:00'
+  - condition: state
+    entity_id: input_boolean.office_occupied
+    state: 'off'
   - service: media_player.media_pause
     target:
       entity_id: media_player.office
   - delay: '00:00:10'
+  - condition: state
+    entity_id: input_boolean.office_occupied
+    state: 'off'
   - service: media_player.volume_set
     target:
       entity_id: media_player.office
