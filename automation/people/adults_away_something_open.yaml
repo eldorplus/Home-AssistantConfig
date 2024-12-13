@@ -33,19 +33,31 @@ action:
   - if:
       - condition: template
         value_template: >-
-          {{ if as_timestamp(states.input_boolean.person2_home.last_updated) > as_timestamp(states.input_boolean.person3_home.last_updated) }}
+          {{ as_timestamp(states.input_boolean.person2_home.last_updated) > as_timestamp(states.input_boolean.person3_home.last_updated) }}
     then:
+      - if:
+          - condition: state
+            entity_id: binary_sensor.pixel_xl_android_auto
+            state: 'on'
+        then:
+          - action: notify.mobile_app_pixel_xl
+            data:
+              title: >-
+                {{ expand(['group.my_downstairs_windows', 'group.my_upstairs_windows', 'group.my_exterior_doors'])|selectattr('state', 'eq', 'on')|list|length }} things are open
+              message: >-
+                The following are open: {{ expand(['group.my_downstairs_windows', 'group.my_upstairs_windows', 'group.my_exterior_doors'])|selectattr('state', 'eq', 'on')|map(attribute='name')|list|join(', ')  }}
+              data:
+                car_ui: true
+                notification_icon: "mdi:shield-home"
+                channel: "car"
+                importance: high
+        else:
+          - action: notify.person2
+            data:
+              message: >-
+                The following are open: {{ expand(['group.my_downstairs_windows', 'group.my_upstairs_windows', 'group.my_exterior_doors'])|selectattr('state', 'eq', 'on')|map(attribute='name')|list|join(', ')  }}
     else:
       - action: notify.person3
         data: 
           message: >-
-            The following are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.my_downstairs_windows', 'entity_id') + state_attr('group.my_upstairs_windows', 'entity_id') + state_attr('group.my_exterior_doors', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}
-  - service: >-
-      {% if as_timestamp(states.input_boolean.person2_home.last_updated) > as_timestamp(states.input_boolean.person3_home.last_updated) %}
-        notify.person2
-      {% else %}
-        notify.person3
-      {% endif %}
-    data: 
-      message: >-
-        The following are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.my_downstairs_windows', 'entity_id') + state_attr('group.my_upstairs_windows', 'entity_id') + state_attr('group.my_exterior_doors', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}
+            The following are open: {{ expand(['group.my_downstairs_windows', 'group.my_upstairs_windows', 'group.my_exterior_doors'])|selectattr('state', 'eq', 'on')|map(attribute='name')|list|join(', ')  }}
