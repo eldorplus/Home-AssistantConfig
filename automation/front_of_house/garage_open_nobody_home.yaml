@@ -13,7 +13,7 @@ condition:
     entity_id: binary_sensor.home_occupied
     state: 'off'
 action:
-  - service: notify.mobile_app_pixel_xl
+  - action: notify.mobile_app_pixel_xl
     data:
       message: TTS
       data:
@@ -21,3 +21,12 @@ action:
         tts_text: "Nobody is home right now, turn off the alarm"
         priority: high
         ttl: 0
+  - action: notify.mobile_app_pixel_xl
+    data:
+      title: "Nobody is home"
+      message: "Nobody is home right now, turn off the alarm"
+      data:
+        car_ui: true
+        notification_icon: "mdi:shield-home"
+        channel: "car"
+        importance: high

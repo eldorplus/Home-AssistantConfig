@@ -30,6 +30,16 @@ condition:
           state: 'on'
 action:
   # Notify the last person to leave
+  - if:
+      - condition: template
+        value_template: >-
+          {{ if as_timestamp(states.input_boolean.person2_home.last_updated) > as_timestamp(states.input_boolean.person3_home.last_updated) }}
+    then:
+    else:
+      - action: notify.person3
+        data: 
+          message: >-
+            The following are open: {{ dict((states|selectattr('entity_id', 'in', state_attr('group.my_downstairs_windows', 'entity_id') + state_attr('group.my_upstairs_windows', 'entity_id') + state_attr('group.my_exterior_doors', 'entity_id'))|list)|groupby('state'))['on']|map(attribute='name')|list|join(', ') }}
   - service: >-
       {% if as_timestamp(states.input_boolean.person2_home.last_updated) > as_timestamp(states.input_boolean.person3_home.last_updated) %}
         notify.person2
