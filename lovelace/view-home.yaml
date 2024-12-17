@@ -203,7 +203,7 @@ cards:
           - integration: 'roku'
           - integration: 'tasmota'
           - integration: 'uk_transport'
-          - integration: 'mass'
+          - integration: 'music_assistant'
           - device_manufacturer: 'LAB02 Research'
           - device_manufacturer: 'HASS.Agent Team'
           - domain: 'device_tracker'
@@ -285,7 +285,7 @@ cards:
         - state 4: 'unavailable'
         - state 5: 'standby'
         - name: 'Spotify*'
-        - integration: 'mass'
+        - integration: 'music_assistant'
         - entity_id: "media_player.*_music_assistant"
 
   - type: custom:auto-entities
