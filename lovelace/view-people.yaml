@@ -475,7 +475,8 @@ cards:
     useFormattedEntities: true
     mainImageHeight: 180px
     chargingImageHeight: 180px
-    showTitle: true
+    showTitle: false
+    layoutType: double
     type: custom:ultra-vehicle-card
     battery_level_entity: ''
     battery_range_entity: ''
