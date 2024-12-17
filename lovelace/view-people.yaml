@@ -473,8 +473,8 @@ cards:
     iconActiveColor: ''
     iconInactiveColor: ''
     useFormattedEntities: true
-    mainImageHeight: 180px
-    chargingImageHeight: 180px
+    mainImageHeight: 150px
+    chargingImageHeight: 150px
     showTitle: false
     layoutType: double
     type: custom:ultra-vehicle-card
