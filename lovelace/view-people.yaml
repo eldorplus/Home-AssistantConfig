@@ -9,6 +9,7 @@ cards:
   - type: picture-entity
     entity: input_text.person_person3
     image: /local/people/person3_Away.png
+    name: ' '
     tap_action:
       action: call-service
       service: input_boolean.toggle
@@ -88,6 +89,7 @@ cards:
 - type: picture-entity
   entity: input_text.person_person4
   image: /local/people/Elizabeth_Away.png
+  name: ' '
   tap_action:
     action: call-service
     service: input_boolean.toggle
@@ -146,6 +148,7 @@ cards:
   - type: picture-entity
     entity: input_text.person_person2
     image: /local/people/person2/Away.png
+    name: ' '
     tap_action:
       action: call-service
       service: input_boolean.toggle
@@ -307,6 +310,7 @@ cards:
   - type: picture-entity
     entity: input_text.person_person1
     image: /local/people/person1_Away.png
+    name: ' '
     tap_action:
       action: call-service
       service: input_boolean.toggle
@@ -505,7 +509,7 @@ cards:
         cards:
         - type: gauge
           name: AdBlue
-          entity: sensor.skoda_superb_adblue_level
+          entity: sensor.skoda_superb_adblue_range_miles
           max: 18000
           min: 0
           severity:
