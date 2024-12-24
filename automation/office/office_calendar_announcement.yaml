@@ -20,6 +20,8 @@ conditions:
     entity_id: binary_sensor.person2_on_holiday
     state: 'off'
 actions:
+  - wait_template: >-
+      {{ not is_state('media_player.office','unavailable') }}
   - action: media_player.play_media
     data:
       media_content_id: >-
