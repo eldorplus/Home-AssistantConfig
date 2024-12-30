@@ -14,4 +14,4 @@
   - name: 'person2 on holiday'
     unique_id: 'person2_on_holiday'
     state: >-
-      {{ (agenda['calendar.person2_work'].events | selectattr('summary', 'contains', 'holiday') | list | length) > 0 }}
+      {{ (agenda['calendar.person2_work'].events | selectattr('summary', 'search', '(h|H)oliday') | list | length) > 0 }}
