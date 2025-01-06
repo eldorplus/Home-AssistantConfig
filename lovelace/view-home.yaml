@@ -208,6 +208,7 @@ cards:
           - device_manufacturer: 'HASS.Agent Team'
           - domain: 'device_tracker'
           - domain: 'weather'
+          - domain: 'event'
           - device: 'person1 Pixel 3'
           - entity_id: "/.*_old/"
           - entity_id: "/_sim_/"
