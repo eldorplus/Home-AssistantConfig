@@ -268,8 +268,9 @@ cards:
       - entity: media_player.office_smart_display
         name: "Home Hub"
         show_last_changed: true
-      - entity: sensor.office_air_co2
-        name: "CO₂"
+      - entity: switch.home_assistant_voice_0907a0_mute
+        name: Assist Mute
+        icon: mdi:account-voice-off
 - type: vertical-stack
   cards:
   - type: heading

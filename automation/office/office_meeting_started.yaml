@@ -1,0 +1,32 @@
+id: 'office_meeting_started'
+initial_state: 'on'
+alias: 'Office meeting started'
+triggers:
+  - trigger: state
+    entity_id: calendar.person2_work
+    to: 'on'
+    id: calendar
+  - trigger: calendar
+    entity_id: calendar.person2_work
+    event: start
+    id: calendar
+  - trigger: state
+    entity_id: binary_sensor.kelsie_webcamactive
+    to: 'on'
+    id: webcam
+  - trigger: state
+    entity_id: input_boolean.office_occupied
+    to: 'off'
+    id: unoccupied
+  - trigger: state
+    entity_id: input_boolean.office_paused
+    to: 'on'
+    id: paused
+  - trigger: state
+    entity_id: input_select.office
+    to: 'Pause'
+    id: paused
+actions:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.home_assistant_voice_0907a0_mute

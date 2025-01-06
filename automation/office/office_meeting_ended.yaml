@@ -1,0 +1,34 @@
+id: 'office_meeting_ended'
+initial_state: 'on'
+alias: 'Office meeting ended'
+triggers:
+  - trigger: state
+    entity_id: calendar.person2_work
+    to: 'off'
+    id: calendar
+  - trigger: calendar
+    entity_id: calendar.person2_work
+    event: end
+    id: calendar
+  - trigger: state
+    entity_id: binary_sensor.kelsie_webcamactive
+    to: 'off'
+    id: webcam
+  - trigger: state
+    entity_id: input_boolean.office_occupied
+    to: 'on'
+    id: unoccupied
+  - trigger: state
+    entity_id: input_boolean.office_paused
+    to: 'off'
+  - trigger: state
+    entity_id: input_select.office
+    to: 'On'
+conditions:
+  - condition: state
+    entity_id: input_boolean.office_occupied
+    state: 'on'
+actions:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.home_assistant_voice_0907a0_mute
