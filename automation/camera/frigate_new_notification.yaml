@@ -52,7 +52,7 @@ action:
     continue_on_error: true
   - service: notify.discord
     data:
-      message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local. {{ llm_analysis if llm_analysis is defined else 'LLM has nothing.' }}"
+      message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local. {{ llm_analysis.response_text if llm_analysis is defined else 'LLM has nothing.' }}"
       target: >-
           !secret discord_camera_channel
       data:
