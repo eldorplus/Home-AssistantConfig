@@ -46,9 +46,10 @@ action:
       temperature: 0.2
       generate_title: false
       event_id: "{{ id }}"
-      provider: 01JH07RFJS0YD9NV9DF9HXGK34
-      message: What is happening in the video?
+      provider: 01JH07QBJ5S0935T0FQPDY6B59
+      message: Summarize what's happening in the security camera feed. Don't describe the scene! If there is a person, describe what they're doing and what they look like. If they look like a courier mention that! Describe any vehicles. If nothing is happening, say so.
     response_variable: llm_analysis
+    continue_on_error: true
   - service: notify.discord
     data:
       message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local. {{ llm_analysis if llm_analysis is defined else 'LLM has nothing.' }}"
