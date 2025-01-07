@@ -23,11 +23,18 @@ triggers:
     to: 'off'
   - trigger: state
     entity_id: input_select.office
-    to: 'On'
+    to:
+      - 'On'
+      - 'Motion'
 conditions:
-  - condition: state
-    entity_id: input_boolean.office_occupied
-    state: 'on'
+  - condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.office_occupied
+        state: 'on'
+      - condition: state
+        entity_id: input_select.office
+        state: 'Motion'
 actions:
   - service: switch.turn_off
     data:
