@@ -4,17 +4,14 @@ alias: 'Master bedroom cube'
 description: 'Handles the master bedroom cube, it supports wakeup, shake/tap, rotate/flip, and fall'
 trigger:
   - platform: state
-    entity_id: sensor.master_bedroom_cube_action
-condition:
-  # Ignore the nothings
-  - condition: template
-    value_template: "{{ (trigger.to_state.state|count > 0) and (trigger.to_state.state is not none) }}"
+    entity_id: event.master_bedroom_cube_action
+    to: ~
 action:
   - choose:
     ############################################################
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'wakeup' }}"
+        value_template: "{{ trigger.to_state.attributes.event_type == 'wakeup' }}"
       - condition: state
         entity_id: input_select.master_bedroom
         state: 
@@ -39,7 +36,7 @@ action:
     # Shake, tap, or flip to turn the lights Off if they're On/Bedtime/Wake, unless it's in motion mode where we turn it on. Turn them On otherwise.
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'tap' or ('flip' in trigger.to_state.state) }}"
+        value_template: "{{ trigger.to_state.attributes.event_type == 'tap' or ('flip' in trigger.to_state.state) }}"
       sequence:
       - choose:
         - conditions:
@@ -106,7 +103,7 @@ action:
     # Rotate (either) to change between On and Bedtime, or if Off and sleeping turn it to Bedtime
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'rotate_right' }}"
+        value_template: "{{ trigger.to_state.attributes.event_type == 'rotate_right' }}"
       - condition: state
         entity_id: input_select.master_bedroom
         state: 'Bedtime'
@@ -117,7 +114,7 @@ action:
           option: 'On'
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'rotate_left' }}"
+        value_template: "{{ trigger.to_state.attributes.event_type == 'rotate_left' }}"
       - condition: or
         conditions:
         - condition: state
@@ -140,7 +137,7 @@ action:
     # Dropped it, time to wake!
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'fall' }}"
+        value_template: "{{ trigger.to_state.attributes.event_type == 'fall' }}"
         # Only if relatively dim
       - condition: numeric_state
         entity_id: sensor.master_bedroom_light_sensor_illuminance_lux
@@ -154,7 +151,7 @@ action:
     # Shake, pick a colour, any colour
     - conditions:
       - condition: template
-        value_template: "{{ trigger.to_state.state == 'shake' }}"
+        value_template: "{{ trigger.to_state.attributes.event_type == 'shake' }}"
       sequence:
       - service: input_select.select_option
         data:
