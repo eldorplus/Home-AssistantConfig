@@ -3,10 +3,14 @@ alias: Dimmer on
 initial_state: 'on'
 trigger:
   - platform: state
-    entity_id: sensor.hue_dimmer_action
+    entity_id: event.hue_dimmer_action
+    to: ~
 condition:
   - condition: template
-    value_template: "{{ trigger.to_state.attributes.action == 'on-press' }}"
+    value_template: >-
+      {{ trigger.to_state.attributes.event_type == 'press' }}
+  - condition: template
+    value_template: "{{ trigger.to_state.attributes.action == 'on_press' }}"
   - condition: state
     entity_id: input_boolean.living_room_occupied
     state: 'on'

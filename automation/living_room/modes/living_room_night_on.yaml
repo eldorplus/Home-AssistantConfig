@@ -4,34 +4,43 @@ alias: 'Living room night on'
 trigger:
   - platform: homeassistant
     event: start
+    id: start
   - platform: event
     event_type: automation_reloaded
+    id: reload
   - platform: state
     entity_id: input_boolean.living_room_occupied
     to: 'on'
+    id: occupied
   # Lights aren't on override
   - platform: state
     entity_id: 
     - input_boolean.livingroom_lights_auto
     - input_boolean.lighting_living_room
     to: 'on'
+    id: toggle
   - platform: state
     entity_id: switch.living_room_christmas_tree
     to: 'on'
+    id: christmas
   - platform: numeric_state
     entity_id: sensor.living_room_light_sensor_illuminance_lux
     below: 8
     for: '00:02:00'
+    id: lux
   - platform: numeric_state
     entity_id: sensor.living_room_light_sensor_illuminance_lux
     below: 6
     for: '00:01:00'
+    id: lux
   - platform: numeric_state
     entity_id: sensor.living_room_light_sensor_illuminance_lux
     below: 5
+    id: lux
   - platform: state
-    entity_id: sensor.hue_dimmer_action
-    to: 'up-press'
+    entity_id: event.hue_dimmer_action
+    to: ~
+    id: remote
 condition:
   - condition: state
     entity_id: input_boolean.living_room_occupied
@@ -43,7 +52,7 @@ condition:
       entity_id: input_boolean.lighting_living_room
       state: 'on'
     - condition: template
-      value_template: "{{ trigger and trigger.entity_id == 'sensor.hue_dimmer_action' }}"
+      value_template: "{{ trigger and trigger.id == 'remote' and trigger.to_state.attributes.event_type == 'press' and trigger.to_state.attributes.action == 'up_press' }}"
   - condition: template
     value_template: "{{ not is_state('input_select.living_room','Night on') }}"
   # Dull

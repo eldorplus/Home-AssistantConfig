@@ -3,9 +3,12 @@ alias: Dimmer up motion
 initial_state: 'on'
 trigger:
   - platform: state
-    entity_id: sensor.hue_dimmer_action
-    to: 'down-press'
+    entity_id: event.hue_dimmer_action
+    to: ~
 condition:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state.attributes.event_type == 'down_press' }}
   - condition: state
     entity_id: input_select.living_room
     state: 'Motion'
