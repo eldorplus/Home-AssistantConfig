@@ -34,9 +34,24 @@ action:
     value_template: "{{ zones != 'opposite' }}"
   - condition: template
     value_template: "{{ (['road', 'front_path', 'drive']|select('in',trigger.payload_json['after']['current_zones'])|list|length > 0) and (['road', 'front_path', 'drive']|select('in',trigger.payload_json['after']['entered_zones'])|list|length > 0) }}"
+  - action: llmvision.video_analyzer
+    data:
+      remember: false
+      frigate_retry_attempts: 2
+      frigate_retry_seconds: 1
+      max_frames: 5
+      include_filename: false
+      target_width: 1280
+      max_tokens: 100
+      temperature: 0.2
+      generate_title: false
+      event_id: "{{ id }}"
+      provider: 01JH07RFJS0YD9NV9DF9HXGK34
+      message: What is happening in the video?
+    response_variable: llm_analysis
   - service: notify.discord
     data:
-      message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local"
+      message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local. {{ llm_analysis if llm_analysis is defined else 'LLM has nothing.' }}"
       target: >-
           !secret discord_camera_channel
       data:
