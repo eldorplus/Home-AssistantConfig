@@ -1,0 +1,20 @@
+id: 'office_mmwave_region_1'
+alias: 'Office mmwave region 1'
+initial_state: 'on'
+triggers:
+  - platform: state
+    entity_id: event.office_mmwave_action
+    to: ~
+actions:
+  - action: notify.person2
+    data:
+      message: >-
+        {% if trigger.to_state.attributes.event_region|int(0) != 1 %}
+          Wrong region
+        {% elif trigger.to_state.attributes.event_type == 'region_occupied' or trigger.to_state.attributes.event_type == 'region_enter' %}
+          on
+        {% elif trigger.to_state.attributes.event_type == 'region_leave' or trigger.to_state.attributes.event_type == 'region_unoccupied' %} 
+          off
+        {% else %}
+          Confused
+        {% endif %}
