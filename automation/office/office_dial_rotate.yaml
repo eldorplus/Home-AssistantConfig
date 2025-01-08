@@ -47,10 +47,3 @@ action:
       - service: media_player.media_previous_track
         data:
           entity_id: media_player.office
-    default:
-      - service: notify.send_message
-        target: 
-          entity_id: notify.debug_log
-        data:
-          message: >-
-            Trigger was {{ trigger.id }} new state of {{ trigger.to_state.state }}\n{{ trigger.to_state.attributes }}
