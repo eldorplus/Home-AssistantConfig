@@ -9,8 +9,6 @@ trigger:
 action:
   - choose:
     - conditions:
-      - condition: trigger
-        id: 'event'
       - condition: template
         value_template: >-
           {{ trigger.to_state.attributes.event_type == 'toggle' }}
@@ -22,8 +20,6 @@ action:
         data:
           entity_id: media_player.office
     - conditions:
-      - condition: trigger
-        id: 'event'
       - condition: template
         value_template: >-
           {{ trigger.to_state.attributes.event_type == 'toggle' }}
