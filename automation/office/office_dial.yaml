@@ -1,29 +1,25 @@
 id: 'office_dial_action'
 initial_state: 'on'
 alias: 'Office dial action'
-trigger:
-  - platform: state
+triggers:
+  - trigger: state
     entity_id: event.office_dial_moes_action
     to: ~
     id: event
-action:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: >-
-          {{ trigger.to_state.attributes.event_type == 'toggle' }}
+conditions:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state.attributes.event_type == 'toggle' }}
+actions:
+  - if:
       - condition: state
         entity_id: media_player.office
         state: 'playing'
-      sequence:
-      - service: media_player.media_pause
+    then:
+      - action: media_player.media_pause
         data:
           entity_id: media_player.office
-    - conditions:
-      - condition: template
-        value_template: >-
-          {{ trigger.to_state.attributes.event_type == 'toggle' }}
-      sequence:
-      - service: media_player.media_play
+    else:
+      - action: media_player.media_play
         data:
           entity_id: media_player.office
