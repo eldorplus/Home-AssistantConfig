@@ -26,10 +26,6 @@ triggers:
     entity_id: input_select.office
     to: 'Pause'
     id: paused
-  - trigger: state
-    entity_id: input_select.office
-    from: 'Motion'
-    id: 'no-motion'
 actions:
   - service: switch.turn_on
     data:
