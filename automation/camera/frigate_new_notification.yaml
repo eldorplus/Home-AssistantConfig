@@ -25,34 +25,20 @@ action:
       entity_id: notify.debug_log
     data:
       message: "{{ id }} is a {{ type }} event {{ id }} for {{ label }} for camera {{ camera }} entered zones {{ trigger.payload_json['after']['entered_zones'] }} and current zones {{ trigger.payload_json['after']['current_zones'] }}"
+    continue_on_error: true
   - service: notify.send_message
     target: 
       entity_id: notify.debug_log
     data:
       message: "{{ id }} interesting zone: {{ ['road', 'front_path', 'drive']|select('in',trigger.payload_json['after']['current_zones'])|list|length > 0 }}/ {{ ['road', 'front_path', 'drive']|select('in',trigger.payload_json['after']['entered_zones'])|list|length > 0 }}"
+    continue_on_error: true
   - condition: template
     value_template: "{{ zones != 'opposite' }}"
   - condition: template
     value_template: "{{ (['road', 'front_path', 'drive']|select('in',trigger.payload_json['after']['current_zones'])|list|length > 0) and (['road', 'front_path', 'drive']|select('in',trigger.payload_json['after']['entered_zones'])|list|length > 0) }}"
-  - action: llmvision.video_analyzer
-    data:
-      remember: false
-      frigate_retry_attempts: 2
-      frigate_retry_seconds: 1
-      max_frames: 5
-      include_filename: false
-      target_width: 1280
-      max_tokens: 100
-      temperature: 0.2
-      generate_title: false
-      event_id: "{{ id }}"
-      provider: 01JH07QBJ5S0935T0FQPDY6B59
-      message: Summarize what's happening in the security camera feed. Don't describe the scene! If there is a person, describe what they're doing and what they look like. If they look like a courier mention that! Describe any vehicles. If nothing is happening, say so.
-    response_variable: llm_analysis
-    continue_on_error: true
   - service: notify.discord
     data:
-      message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local. {{ llm_analysis.response_text if llm_analysis is defined else 'LLM has nothing.' }}"
+      message: "A {{ type }} {{ label|lower }} was detected in the {{ zones }} by the {{ camera }} camera at {{ as_timestamp(now())|timestamp_custom('%Y-%m-%d %H:%M:%S',now()) }} local." #{{ llm_analysis.response_text if llm_analysis is defined else 'LLM has nothing.' }}"
       target: >-
           !secret discord_camera_channel
       data:
