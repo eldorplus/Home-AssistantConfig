@@ -17,15 +17,19 @@ triggers:
   - trigger: state
     entity_id: input_boolean.office_occupied
     to: 'on'
-    id: unoccupied
+    id: occupied
+  - trigger: state
+    entity_id: binary_sensor.office_mmwave_region_1
+    to: 'on'
+    id: presence
   - trigger: state
     entity_id: input_boolean.office_paused
     to: 'off'
+    id: paused
   - trigger: state
     entity_id: input_select.office
-    to:
-      - 'On'
-      - 'Motion'
+    to: 'Motion'
+    id: select
 conditions:
   - condition: or
     conditions:
@@ -35,6 +39,8 @@ conditions:
       - condition: state
         entity_id: input_select.office
         state: 'Motion'
+      - condition: trigger
+        id: presence
 actions:
   - service: switch.turn_off
     data:
