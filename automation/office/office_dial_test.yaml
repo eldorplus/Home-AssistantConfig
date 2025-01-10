@@ -10,4 +10,4 @@ action:
       entity_id: notify.debug_log
     data:
       message: >-
-        From {{ trigger.from_state.attributes.event_type }}/{{ trigger.from_state.attributes.direction }} to {{ trigger.to_state.attributes.event_type }}/{{ trigger.to_state.attributes.direction }}
+        Office dial from {{ trigger.from_state.attributes.event_type }}/{{ trigger.from_state.attributes.direction }} to {{ trigger.to_state.attributes.event_type }}/{{ trigger.to_state.attributes.direction }}

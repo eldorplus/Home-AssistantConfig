@@ -5,18 +5,23 @@ triggers:
   - trigger: state
     entity_id: event.office_dial_moes_action
     to: ~
-    id: event
 conditions:
   - condition: template
     value_template: >-
       {{ trigger.to_state.attributes.event_type in ['brightness_step','brightness_step','color_temperature_step_up','color_temperature_step_down'] }}
 variables:
-  action: >-
-    {{ 'volume_'+trigger.to_state.attributes.direction if trigger.to_state.attributes.event_type == 'brightness_step' else ('next_track' if trigger.to_state.attributes.event_type == 'color_temperature_step_up' else 'prev_track') }}
-  current_vol: "{{ state_attr('media_player.office','volume_level')|float(0) }}"
-  vol_step: "{{ (trigger.to_state.attributes.action_step_size|float(12)/1000)|round(2) }}"
-  new_vol: >-
-    {{ (min(1,(current_vol|float(0)+vol_step|float(0))))|round(2) if (trigger.id == 'volume_up' or (trigger.to_state.attributes.event_type == 'brightness_step' and trigger.to_state.attributes.direction == 'up')) else (max(0,(current_vol|float(0)-vol_step|float(0))))|round(2) }}
+    action: >-
+      {% if trigger.to_state.attributes.event_type == 'brightness_step' and trigger.to_state.attributes.direction|is_defined %}
+        volume_{{trigger.to_state.attributes.direction}}
+      {% elif trigger.to_state.attributes.event_type == 'color_temperature_step_up' %}
+        next_track
+      {% else %}
+        prev_track
+      {% endif %}
+    current_vol: "{{ state_attr('media_player.office','volume_level')|float(0) }}"
+    vol_step: "0.01"
+    new_vol: >-
+      {{ (min(1,(current_vol|float(0)+vol_step|float(0))))|round(2) if (action == 'volume_up') else (max(0,(current_vol|float(0)-vol_step|float(0))))|round(2) }}
 action:
   - choose:
     - conditions:
@@ -47,3 +52,10 @@ action:
       - service: media_player.media_previous_track
         data:
           entity_id: media_player.office
+    default:
+      - service: notify.send_message
+        target: 
+          entity_id: notify.debug_log
+        data:
+          message: >-
+            Action is {{ action }} with {{ new_vol }}
