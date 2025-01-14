@@ -22,6 +22,10 @@ triggers:
     entity_id: input_boolean.office_paused
     to: 'on'
     id: paused
+conditions:
+  - condition: state
+    entity_id: switch.home_assistant_voice_0907a0_mute
+    state: 'off'
 actions:
   - service: switch.turn_on
     data:
